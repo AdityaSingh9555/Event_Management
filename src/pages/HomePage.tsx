@@ -258,15 +258,15 @@ export default function HomePage() {
                 Refer & Earn Program
               </div>
               <h2 className="text-4xl md:text-5xl font-extrabold mb-4 leading-tight">
-                Invite Friends, <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">Earn ₹500</span>
+                Invite Friends, <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">Earn ₹100</span>
               </h2>
               <p className="text-lg text-slate-300 mb-8 max-w-xl">
-                Share your unique code. They get 15% off their first booking, and you get ₹500 in your EventHub wallet for every successful referral!
+                Share your unique code. They get 15% off their first booking, and you get ₹100 in your EventHub wallet for every successful referral!
               </p>
               
               <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
                 <div className="bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl p-2 flex items-center justify-between w-full max-w-sm">
-                  <code className="text-xl font-bold tracking-widest text-white px-4">ADITYA500</code>
+                  <code className="text-xl font-bold tracking-widest text-white px-4">EVENTHUB</code>
                   <Button variant="secondary" className="rounded-xl font-bold bg-white text-slate-900 hover:bg-slate-200">
                     <Copy className="w-4 h-4 mr-2" /> Copy
                   </Button>
