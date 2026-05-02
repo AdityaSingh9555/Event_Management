@@ -331,7 +331,7 @@ function FeaturedEventCard({ event }: { event: Event }) {
   const totalAvailable = event.ticketTypes.reduce((sum, t) => sum + (t.quantityTotal - t.quantitySold - t.quantityHeld), 0)
 
   return (
-    <Card className="overflow-hidden group cursor-pointer border-0 shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 rounded-3xl bg-white h-full flex flex-col">
+    <Card className="overflow-hidden group cursor-pointer border-0 shadow-lg shadow-indigo-500/10 hover:shadow-2xl hover:shadow-indigo-500/40 hover:-translate-y-2 transition-all duration-300 rounded-3xl bg-white h-full flex flex-col">
       <Link to={`/events/${event.id}`} className="flex flex-col h-full">
         <div className="relative h-56 overflow-hidden shrink-0">
           <div className="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
@@ -379,7 +379,7 @@ function EventCard({ event }: { event: Event }) {
   const totalAvailable = event.ticketTypes.reduce((sum, t) => sum + (t.quantityTotal - t.quantitySold - t.quantityHeld), 0)
 
   return (
-    <Card className="overflow-hidden group cursor-pointer border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 rounded-2xl bg-white flex flex-col h-full">
+    <Card className="overflow-hidden group cursor-pointer border border-slate-100 shadow-md shadow-purple-500/10 hover:shadow-xl hover:shadow-purple-500/40 hover:-translate-y-1.5 transition-all duration-300 rounded-2xl bg-white flex flex-col h-full">
       <Link to={`/events/${event.id}`} className="flex flex-col h-full">
         <div className="relative h-48 overflow-hidden shrink-0">
           <div className="absolute inset-0 bg-slate-900/10 group-hover:bg-transparent transition-colors duration-500 z-10" />
