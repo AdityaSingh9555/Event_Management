@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Search, Calendar, MapPin, Ticket, Filter, ChevronRight, Star, Users } from 'lucide-react'
+import { Search, Calendar, MapPin, Ticket, Filter, ChevronRight, Star, Users, Zap } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -84,36 +84,77 @@ export default function HomePage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white py-20 px-4">
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute inset-0 bg-[url('/assets/images/hero_india.png')] bg-cover bg-center" />
+      <section className="relative overflow-hidden bg-slate-950 text-white pt-24 pb-32 px-4">
+        {/* Animated Background Gradients */}
+        <div className="absolute top-0 -left-1/4 w-1/2 h-1/2 bg-indigo-500/30 rounded-full blur-[120px] mix-blend-screen" />
+        <div className="absolute bottom-0 -right-1/4 w-1/2 h-1/2 bg-rose-500/30 rounded-full blur-[120px] mix-blend-screen" />
+        
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute inset-0 bg-[url('/assets/images/hero_india.png')] bg-cover bg-center mix-blend-overlay" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/60 to-transparent" />
         </div>
-        <div className="relative max-w-6xl mx-auto text-center">
-          <Badge variant="secondary" className="mb-4 text-sm bg-yellow-500/10 text-yellow-500 hover:bg-yellow-500/20 border-yellow-500/20">
-            <Star className="w-3 h-3 mr-1 fill-yellow-500 text-yellow-500" /> 
+        
+        <div className="relative max-w-6xl mx-auto text-center animate-in fade-in slide-in-from-bottom-8 duration-1000">
+          <Badge variant="secondary" className="mb-6 px-4 py-1.5 text-sm bg-yellow-500/10 text-yellow-500 hover:bg-yellow-500/20 border-yellow-500/20 backdrop-blur-md">
+            <Star className="w-3.5 h-3.5 mr-2 fill-yellow-500 text-yellow-500" /> 
             4.8/5 Average Rating from Event Goers
           </Badge>
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+          <h1 className="text-5xl md:text-7xl font-extrabold mb-6 leading-tight tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-slate-400">
             Discover Amazing<br />Events Near You
           </h1>
-          <p className="text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
-            From concerts to conferences, find and book tickets for the best events in your city.
+          <p className="text-xl md:text-2xl text-slate-300 mb-10 max-w-2xl mx-auto font-light">
+            From concerts to conferences, find and book tickets for the best events in your city seamlessly.
           </p>
 
-          <div className="max-w-2xl mx-auto flex gap-2">
+          <div className="max-w-3xl mx-auto flex flex-col sm:flex-row gap-3 p-2 bg-white/10 backdrop-blur-xl rounded-2xl border border-white/20 shadow-2xl">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-300" />
               <Input
                 placeholder="Search events, artists, venues..."
-                className="pl-10 h-14 bg-white/10 border-white/20 text-white placeholder:text-slate-400 text-lg"
+                className="pl-12 h-14 bg-transparent border-none text-white placeholder:text-slate-400 text-lg focus-visible:ring-0 focus-visible:ring-offset-0"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
-            <Button size="lg" className="h-14 px-8">
+            <Button size="lg" className="h-14 px-8 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-semibold text-lg transition-all shadow-lg hover:shadow-indigo-500/25">
               Search
             </Button>
           </div>
+        </div>
+      </section>
+
+      {/* Trusted By Banner */}
+      <div className="border-b bg-slate-50/50 backdrop-blur-sm">
+        <div className="max-w-6xl mx-auto px-4 py-8 flex flex-col items-center">
+          <p className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-6">Trusted by top organizers</p>
+          <div className="flex flex-wrap justify-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+            {['TechCorp', 'Festiva', 'SummitPro', 'LiveNation', 'Eventify'].map((brand, i) => (
+              <span key={i} className="text-xl font-bold text-slate-700">{brand}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* How it Works */}
+      <section className="py-20 px-4 max-w-6xl mx-auto">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">How EventHub Works</h2>
+          <p className="text-slate-500 max-w-2xl mx-auto text-lg">Your next great experience is just three simple steps away.</p>
+        </div>
+        <div className="grid md:grid-cols-3 gap-8">
+          {[
+            { icon: Search, title: "Discover", desc: "Find the best events happening around you tailored to your interests.", color: "text-blue-500", bg: "bg-blue-50" },
+            { icon: Ticket, title: "Book", desc: "Securely purchase tickets in seconds with our streamlined checkout.", color: "text-violet-500", bg: "bg-violet-50" },
+            { icon: Zap, title: "Experience", desc: "Show your digital ticket at the venue and enjoy your unforgettable event.", color: "text-rose-500", bg: "bg-rose-50" }
+          ].map((step, i) => (
+            <div key={i} className="text-center p-8 rounded-3xl hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-slate-100 bg-white">
+              <div className={`w-16 h-16 mx-auto ${step.bg} ${step.color} rounded-2xl flex items-center justify-center mb-6 rotate-3 hover:rotate-6 transition-transform`}>
+                <step.icon className="w-8 h-8" />
+              </div>
+              <h3 className="text-xl font-bold mb-3">{step.title}</h3>
+              <p className="text-slate-500">{step.desc}</p>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -125,11 +166,11 @@ export default function HomePage() {
             <Filter className="w-4 h-4 mr-2" /> Filters
           </Button>
         </div>
-        <div className="flex gap-3 overflow-x-auto pb-2">
+        <div className="flex gap-3 overflow-x-auto pb-4 pt-2 hide-scrollbar">
           <Button
             variant={selectedCategory === '' ? 'default' : 'outline'}
             onClick={() => setSelectedCategory('')}
-            className="whitespace-nowrap"
+            className={`whitespace-nowrap rounded-full px-6 transition-all ${selectedCategory === '' ? 'bg-slate-900 text-white shadow-md' : 'hover:bg-slate-100'}`}
           >
             All Events
           </Button>
@@ -138,7 +179,7 @@ export default function HomePage() {
               key={cat.value}
               variant={selectedCategory === cat.value ? 'default' : 'outline'}
               onClick={() => setSelectedCategory(cat.value)}
-              className="whitespace-nowrap"
+              className={`whitespace-nowrap rounded-full px-6 transition-all ${selectedCategory === cat.value ? 'bg-slate-900 text-white shadow-md' : 'hover:bg-slate-100'}`}
             >
               <span className="mr-2">{cat.icon}</span>
               {cat.label}
