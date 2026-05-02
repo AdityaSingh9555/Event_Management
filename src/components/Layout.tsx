@@ -160,11 +160,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <footer className="border-t bg-slate-50 py-12 px-4">
         <div className="max-w-7xl mx-auto grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 bg-gradient-to-br from-violet-600 to-blue-600 rounded-lg flex items-center justify-center">
-                <Ticket className="w-5 h-5 text-white" />
+            <div className="flex items-center gap-3 mb-4 select-none group">
+              <div className="relative w-8 h-8 bg-gradient-to-tr from-rose-500 via-purple-500 to-indigo-500 rounded-lg flex items-center justify-center shadow-md shadow-purple-500/20 group-hover:shadow-purple-500/40 group-hover:scale-105 transition-all duration-300">
+                <div className="absolute inset-0 bg-white/20 rounded-lg blur-[2px]" />
+                <Sparkles className="w-4 h-4 text-white relative z-10 animate-pulse" />
               </div>
-              <span className="font-bold text-lg">EventHub</span>
+              <span className="font-extrabold text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-700 to-slate-900 group-hover:from-purple-600 group-hover:to-indigo-600 transition-all duration-500">
+                EventHub
+              </span>
             </div>
             <p className="text-sm text-muted-foreground">
               The premier platform for event discovery, ticketing, and management.
