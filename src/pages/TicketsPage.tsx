@@ -4,7 +4,7 @@ import { Ticket, QrCode, Download, Share2, AlertTriangle, CheckCircle, Clock, Ma
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { QRCodeSVG } from 'qrcode.react'
+import { QRCodeCanvas } from 'qrcode.react'
 import { useTickets, useAuth } from '@/hooks/useStore'
 import { tickets as ticketsApi, events } from '@/lib/store'
 import { formatDate, formatCurrency } from '@/lib/utils'
@@ -154,7 +154,7 @@ export default function TicketsPage() {
               <p className="text-muted-foreground mb-6">{selectedTicket.ticketTypeName}</p>
 
               <div className="bg-white p-4 rounded-xl inline-block mb-4 border shadow-sm">
-                <QRCodeSVG 
+                <QRCodeCanvas 
                   value={selectedTicket.qrCode} 
                   size={200}
                   level="H"
@@ -228,7 +228,7 @@ function TicketCard({ ticket, onViewQR }: { ticket: TicketType; onViewQR: () => 
             {!isUsed && !isRefunded ? (
               <>
                 <div className="w-16 h-16 bg-white rounded-lg p-1 mb-2 cursor-pointer hover:shadow-md transition-shadow" onClick={onViewQR}>
-                  <QRCodeSVG value={ticket.qrCode} size={56} level="L" />
+                  <QRCodeCanvas value={ticket.qrCode} size={56} level="L" />
                 </div>
                 <Button variant="ghost" size="sm" className="text-xs" onClick={onViewQR}>
                   <QrCode className="w-3 h-3 mr-1" /> View
