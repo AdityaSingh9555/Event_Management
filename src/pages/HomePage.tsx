@@ -18,6 +18,26 @@ const CATEGORIES: { value: EventCategory; label: string; icon: string }[] = [
   { value: 'festival', label: 'Festivals', icon: '🎪' },
   { value: 'networking', label: 'Networking', icon: '🤝' },
 ]
+const defaultFeedbacks = [
+  {
+    name: 'Priya Sharma',
+    role: 'Event Goer',
+    content: 'The booking process was incredibly smooth! I loved how easy it was to find the best concerts in Mumbai and pay securely.',
+    rating: 5
+  },
+  {
+    name: 'Rahul Desai',
+    role: 'Organizer',
+    content: 'As an organizer, the dashboard gave me all the insights I needed to manage ticket sales and track attendance seamlessly.',
+    rating: 5
+  },
+  {
+    name: 'Ananya Gupta',
+    role: 'Event Goer',
+    content: 'Loved the personalized recommendations! Discovered an amazing indie music festival near me that I would have totally missed otherwise.',
+    rating: 4
+  }
+]
 
 export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState('')
@@ -25,6 +45,29 @@ export default function HomePage() {
   const [featuredEvents, setFeaturedEvents] = useState<Event[]>([])
   const [upcomingEvents, setUpcomingEvents] = useState<Event[]>([])
   const [searchResults, setSearchResults] = useState<Event[]>([])
+  const [feedbacks, setFeedbacks] = useState(defaultFeedbacks)
+  const [newRating, setNewRating] = useState(5)
+  const [newName, setNewName] = useState('')
+  const [newContent, setNewContent] = useState('')
+  const [isSubmittingFeedback, setIsSubmittingFeedback] = useState(false)
+
+  const handleFeedbackSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!newName.trim() || !newContent.trim()) return
+    
+    const newFeedback = {
+      name: newName,
+      role: 'Event Goer',
+      content: newContent,
+      rating: newRating
+    }
+    
+    setFeedbacks([newFeedback, ...feedbacks])
+    setNewName('')
+    setNewContent('')
+    setNewRating(5)
+    setIsSubmittingFeedback(false)
+  }
 
   useEffect(() => {
     const allEvents = events.getAll().filter(e => e.status === 'published')
@@ -46,8 +89,9 @@ export default function HomePage() {
           <div className="absolute inset-0 bg-[url('/assets/images/hero_india.png')] bg-cover bg-center" />
         </div>
         <div className="relative max-w-6xl mx-auto text-center">
-          <Badge variant="secondary" className="mb-4 text-sm">
-            <Star className="w-3 h-3 mr-1" /> The #1 Event Ticketing Platform
+          <Badge variant="secondary" className="mb-4 text-sm bg-yellow-500/10 text-yellow-500 hover:bg-yellow-500/20 border-yellow-500/20">
+            <Star className="w-3 h-3 mr-1 fill-yellow-500 text-yellow-500" /> 
+            4.8/5 Average Rating from Event Goers
           </Badge>
           <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
             Discover Amazing<br />Events Near You
@@ -137,6 +181,90 @@ export default function HomePage() {
             ))}
           </div>
         )}
+      </section>
+
+      {/* Customer Feedback & Rating System */}
+      <section className="py-16 px-4 max-w-6xl mx-auto border-t border-slate-100">
+        <div className="text-center mb-12 flex flex-col items-center">
+          <h2 className="text-3xl font-bold mb-4">What Our Customers Say</h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
+            Don't just take our word for it. Here's what event-goers and organizers have to say about their experience with EventHub.
+          </p>
+          {!isSubmittingFeedback ? (
+            <Button onClick={() => setIsSubmittingFeedback(true)}>
+              Leave a Review
+            </Button>
+          ) : (
+            <Card className="w-full max-w-md mx-auto text-left mb-8 shadow-md">
+              <form onSubmit={handleFeedbackSubmit}>
+                <CardHeader>
+                  <CardTitle>Write a Review</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div>
+                    <label className="text-sm font-medium">Rating</label>
+                    <div className="flex gap-1 mt-1">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <Star 
+                          key={star} 
+                          className={`w-6 h-6 cursor-pointer ${star <= newRating ? 'fill-yellow-500 text-yellow-500' : 'text-slate-300'}`} 
+                          onClick={() => setNewRating(star)}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium">Your Name</label>
+                    <Input 
+                      value={newName} 
+                      onChange={(e) => setNewName(e.target.value)} 
+                      placeholder="John Doe" 
+                      required 
+                      className="mt-1"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium">Review</label>
+                    <Input 
+                      value={newContent} 
+                      onChange={(e) => setNewContent(e.target.value)} 
+                      placeholder="Share your experience..." 
+                      required 
+                      className="mt-1"
+                    />
+                  </div>
+                  <div className="flex gap-2 justify-end pt-2">
+                    <Button type="button" variant="ghost" onClick={() => setIsSubmittingFeedback(false)}>Cancel</Button>
+                    <Button type="submit">Submit Review</Button>
+                  </div>
+                </CardContent>
+              </form>
+            </Card>
+          )}
+        </div>
+        <div className="grid md:grid-cols-3 gap-6">
+          {feedbacks.slice(0, 3).map((feedback, idx) => (
+            <Card key={idx} className="bg-slate-50 border-none shadow-sm hover:shadow-md transition-shadow">
+              <CardContent className="p-6 flex flex-col h-full">
+                <div className="flex gap-1 mb-4 text-yellow-500">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star key={i} className={`w-4 h-4 ${i < feedback.rating ? 'fill-current' : 'text-slate-300'}`} />
+                  ))}
+                </div>
+                <p className="text-slate-700 italic mb-6 grow">"{feedback.content}"</p>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center font-bold text-indigo-700">
+                    {feedback.name.charAt(0)}
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-sm">{feedback.name}</h4>
+                    <p className="text-xs text-muted-foreground">{feedback.role}</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </section>
     </div>
   )
