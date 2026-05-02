@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Search, Calendar, MapPin, Ticket, Filter, ChevronRight, Star, Users, Zap, Quote, MessageSquare, Gift, Copy, Check, Share2, Instagram, MessageCircle } from 'lucide-react'
+import { Search, Calendar, MapPin, Ticket, Filter, ChevronRight, Star, Users, Zap, Quote, MessageSquare, Gift, Copy, Check, Share2, Instagram, MessageCircle, PartyPopper } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -350,8 +350,12 @@ export default function HomePage() {
             
             <div className="hidden lg:flex w-72 h-72 relative items-center justify-center shrink-0">
               <div className="absolute inset-0 bg-gradient-to-tr from-pink-500 to-purple-500 rounded-full animate-pulse blur-3xl opacity-40" />
-              <div className="relative w-full h-full bg-white/10 backdrop-blur-2xl rounded-full border border-white/20 shadow-2xl flex items-center justify-center p-8">
-                 <Gift className="w-32 h-32 text-pink-300 drop-shadow-2xl" />
+              <div className={`relative w-full h-full backdrop-blur-2xl rounded-full border shadow-2xl flex items-center justify-center p-8 transition-all duration-500 ${isCopied ? 'bg-emerald-500/20 border-emerald-400/50 scale-110' : 'bg-white/10 border-white/20'}`}>
+                 {isCopied ? (
+                   <PartyPopper className="w-32 h-32 text-emerald-300 drop-shadow-2xl animate-bounce" />
+                 ) : (
+                   <Gift className="w-32 h-32 text-pink-300 drop-shadow-2xl" />
+                 )}
               </div>
             </div>
           </div>
