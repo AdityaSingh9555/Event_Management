@@ -143,23 +143,33 @@ export default function HomePage() {
         </div>
         <div className="grid md:grid-cols-3 gap-8">
           {[
-            { icon: Search, title: "Discover", desc: "Find the best events happening around you tailored to your interests.", color: "text-blue-500", bg: "bg-blue-50" },
-            { icon: Ticket, title: "Book", desc: "Securely purchase tickets in seconds with our streamlined checkout.", color: "text-violet-500", bg: "bg-violet-50" },
-            { icon: Zap, title: "Experience", desc: "Show your digital ticket at the venue and enjoy your unforgettable event.", color: "text-rose-500", bg: "bg-rose-50" }
+            { icon: Search, title: "Discover", desc: "Find the best events happening around you tailored to your interests.", color: "text-blue-500", bg: "bg-blue-50", link: "#categories" },
+            { icon: Ticket, title: "Book", desc: "Securely purchase tickets in seconds with our streamlined checkout.", color: "text-violet-500", bg: "bg-violet-50", link: "#events" },
+            { icon: Zap, title: "Experience", desc: "Show your digital ticket at the venue and enjoy your unforgettable event.", color: "text-rose-500", bg: "bg-rose-50", link: "/tickets" }
           ].map((step, i) => (
-            <div key={i} className="text-center p-8 rounded-3xl hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-slate-100 bg-white">
-              <div className={`w-16 h-16 mx-auto ${step.bg} ${step.color} rounded-2xl flex items-center justify-center mb-6 rotate-3 hover:rotate-6 transition-transform`}>
-                <step.icon className="w-8 h-8" />
-              </div>
-              <h3 className="text-xl font-bold mb-3">{step.title}</h3>
-              <p className="text-slate-500">{step.desc}</p>
-            </div>
+            step.link.startsWith('#') ? (
+              <a href={step.link} key={i} className="text-center p-8 rounded-3xl hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-slate-100 bg-white block">
+                <div className={`w-16 h-16 mx-auto ${step.bg} ${step.color} rounded-2xl flex items-center justify-center mb-6 rotate-3 hover:rotate-6 transition-transform`}>
+                  <step.icon className="w-8 h-8" />
+                </div>
+                <h3 className="text-xl font-bold mb-3">{step.title}</h3>
+                <p className="text-slate-500">{step.desc}</p>
+              </a>
+            ) : (
+              <Link to={step.link} key={i} className="text-center p-8 rounded-3xl hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-slate-100 bg-white block">
+                <div className={`w-16 h-16 mx-auto ${step.bg} ${step.color} rounded-2xl flex items-center justify-center mb-6 rotate-3 hover:rotate-6 transition-transform`}>
+                  <step.icon className="w-8 h-8" />
+                </div>
+                <h3 className="text-xl font-bold mb-3">{step.title}</h3>
+                <p className="text-slate-500">{step.desc}</p>
+              </Link>
+            )
           ))}
         </div>
       </section>
 
       {/* Categories */}
-      <section className="py-12 px-4 max-w-6xl mx-auto">
+      <section id="categories" className="py-12 px-4 max-w-6xl mx-auto scroll-mt-20">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold">Browse by Category</h2>
           <Button variant="ghost" size="sm">
@@ -201,7 +211,7 @@ export default function HomePage() {
       )}
 
       {/* Event Grid */}
-      <section className="py-8 px-4 max-w-6xl mx-auto pb-20">
+      <section id="events" className="py-8 px-4 max-w-6xl mx-auto pb-20 scroll-mt-20">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold">
             {searchQuery || selectedCategory ? 'Search Results' : 'Upcoming Events'}
