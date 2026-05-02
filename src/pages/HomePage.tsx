@@ -120,6 +120,16 @@ export default function HomePage() {
               Search
             </Button>
           </div>
+
+          <div className="mt-8 flex justify-center animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-300">
+            <div className="bg-gradient-to-r from-amber-500/90 to-orange-500/90 backdrop-blur-md px-6 py-3 rounded-full text-white shadow-xl shadow-orange-500/20 flex items-center gap-3 border border-white/20">
+              <Zap className="w-5 h-5 text-yellow-200 fill-yellow-200 animate-pulse shrink-0" />
+              <p className="text-sm md:text-base font-medium">
+                <span className="font-extrabold mr-1">First-Time User?</span>
+                Use code <strong className="bg-black/20 px-2 py-0.5 rounded text-white tracking-wider mx-1">WELCOME15</strong> for a flat 15% discount!
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
