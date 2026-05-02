@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ShoppingCart, Trash2, Minus, Plus, ArrowLeft, Tag, AlertTriangle, CreditCard, Loader2, CheckCircle2 } from 'lucide-react'
+import { ShoppingCart, Trash2, Minus, Plus, ArrowLeft, Tag, AlertTriangle, CreditCard, Loader2, CheckCircle2, QrCode } from 'lucide-react'
+import { QRCodeSVG } from 'qrcode.react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -17,7 +18,7 @@ export default function CartPage() {
   const [promoError, setPromoError] = useState('')
   const [appliedPromo, setAppliedPromo] = useState<{ code: string; discount: number; type: 'percentage' | 'fixed' } | null>(null)
   const [isCheckingOut, setIsCheckingOut] = useState(false)
-  const [paymentStep, setPaymentStep] = useState<'idle' | 'processing' | 'verifying' | 'success'>('idle')
+  const [paymentStep, setPaymentStep] = useState<'idle' | 'qr' | 'processing' | 'verifying' | 'success'>('idle')
   const currentUser = auth.getCurrentUser()
 
   const cartItems = items.map(item => {
@@ -55,23 +56,25 @@ export default function CartPage() {
     setPromoError('')
   }
 
-  const handleCheckout = async () => {
+  const handleCheckout = () => {
     if (!currentUser) {
       navigate('/login', { state: { from: '/cart' } })
       return
     }
 
     setIsCheckingOut(true)
-    setPaymentStep('processing')
+    setPaymentStep('qr')
+  }
 
-    // Simulate payment processing
-    await new Promise(resolve => setTimeout(resolve, 1500))
+  const handlePaymentComplete = async () => {
+    if (!currentUser) return;
+    
     setPaymentStep('verifying')
     
-    await new Promise(resolve => setTimeout(resolve, 1500))
+    await new Promise(resolve => setTimeout(resolve, 2000))
     setPaymentStep('success')
     
-    await new Promise(resolve => setTimeout(resolve, 800))
+    await new Promise(resolve => setTimeout(resolve, 1000))
 
     // Group by event
     const eventGroups: Record<string, typeof cartItems> = {}
@@ -324,6 +327,36 @@ export default function CartPage() {
         <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <Card className="max-w-sm w-full shadow-2xl animate-in zoom-in-95 duration-200">
             <CardContent className="p-8 text-center flex flex-col items-center">
+              {paymentStep === 'qr' && (
+                <>
+                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                    <QrCode className="w-8 h-8 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-2">Scan to Pay</h3>
+                  <p className="text-muted-foreground mb-6">Scan with any UPI app (GPay, PhonePe, Paytm)</p>
+                  
+                  <div className="bg-white p-4 rounded-xl border-2 border-primary/20 shadow-inner mb-6">
+                    <QRCodeSVG 
+                      value={`upi://pay?pa=aditya2006march-6@okicici&pn=EventHub&am=${total}&cu=INR`}
+                      size={200}
+                      level="H"
+                      includeMargin={true}
+                    />
+                  </div>
+
+                  <div className="flex items-center justify-between w-full mb-6 px-4">
+                    <span className="text-sm text-muted-foreground">Amount to pay:</span>
+                    <span className="text-xl font-bold text-primary">{formatCurrency(total)}</span>
+                  </div>
+
+                  <Button className="w-full" size="lg" onClick={handlePaymentComplete}>
+                    I have completed the payment
+                  </Button>
+                  <Button variant="ghost" className="w-full mt-2" onClick={() => { setIsCheckingOut(false); setPaymentStep('idle'); }}>
+                    Cancel
+                  </Button>
+                </>
+              )}
               {paymentStep === 'processing' && (
                 <>
                   <Loader2 className="w-16 h-16 text-primary animate-spin mb-6" />
