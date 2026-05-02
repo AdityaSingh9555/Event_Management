@@ -25,7 +25,7 @@ export default function RegisterPage() {
     setTimeout(() => {
       try {
         const user = register(email, name, role)
-        navigate('/')
+        navigate('/', { state: { emailType: 'welcome' } })
       } catch (err) {
         setError('Registration failed. Please try again.')
       }

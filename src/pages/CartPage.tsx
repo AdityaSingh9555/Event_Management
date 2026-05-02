@@ -149,7 +149,7 @@ export default function CartPage() {
     setIsCheckingOut(false)
     setPaymentStep('idle')
 
-    navigate('/tickets', { state: { success: true } })
+    navigate('/tickets', { state: { success: true, emailType: 'order_confirmation' } })
   }
 
   if (cartItems.length === 0) {

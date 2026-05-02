@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
-import { Search, ShoppingCart, Ticket, LayoutDashboard, QrCode, Menu, X, LogOut, User, ChevronDown, Sparkles } from 'lucide-react'
+import { Search, ShoppingCart, Ticket, LayoutDashboard, QrCode, Menu, X, LogOut, User, ChevronDown, Sparkles, Mail, X as CloseIcon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { useAuth, useCart } from '@/hooks/useStore'
@@ -202,6 +202,91 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           © 2026 EventHub. All rights reserved.
         </div>
       </footer>
+
+      {/* Simulated Email Notification System */}
+      <EmailNotification />
     </div>
   )
 }
+
+function EmailNotification() {
+  const location = useLocation()
+  const navigate = useNavigate()
+  const [show, setShow] = useState(false)
+  const [emailData, setEmailData] = useState<{ subject: string; preview: string; time: string } | null>(null)
+
+  useState(() => {
+    // Initial check for state when component mounts/remounts due to navigation
+  })
+
+  // We use useEffect to catch the location state changes
+  import('react').then(React => {
+    React.useEffect(() => {
+      const state = location.state as { emailType?: string } | null
+      if (state?.emailType) {
+        if (state.emailType === 'welcome') {
+          setEmailData({
+            subject: 'Welcome to EventHub! 🎉',
+            preview: 'Your account has been successfully created. Start exploring amazing events today.',
+            time: 'Just now'
+          })
+        } else if (state.emailType === 'order_confirmation') {
+          setEmailData({
+            subject: 'Your Tickets are Confirmed! 🎟️',
+            preview: 'Thank you for your purchase. Your e-tickets and receipt are attached.',
+            time: 'Just now'
+          })
+        }
+        setShow(true)
+        
+        // Play a subtle notification sound (optional, but adds to realism if supported)
+        try {
+          const audio = new Audio('/assets/notification.mp3') // If exists
+          audio.volume = 0.5
+          audio.play().catch(() => {})
+        } catch(e) {}
+
+        // Clear the state so it doesn't trigger again on refresh
+        const newState = { ...state }
+        delete newState.emailType
+        navigate(location.pathname, { replace: true, state: newState })
+
+        // Auto-hide after 6 seconds
+        const timer = setTimeout(() => setShow(false), 6000)
+        return () => clearTimeout(timer)
+      }
+    }, [location])
+  })
+
+  if (!show || !emailData) return null
+
+  return (
+    <div className="fixed bottom-6 right-6 z-50 animate-in slide-in-from-bottom-5 fade-in duration-500">
+      <div className="bg-white dark:bg-slate-900 border shadow-2xl rounded-xl p-4 w-80 max-w-[calc(100vw-2rem)] flex gap-4 relative overflow-hidden group cursor-pointer hover:border-primary/50 transition-colors">
+        {/* Decorative left accent */}
+        <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-500"></div>
+        
+        <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/50 flex flex-shrink-0 items-center justify-center mt-1">
+          <Mail className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+        </div>
+        
+        <div className="flex-1 min-w-0">
+          <div className="flex justify-between items-start mb-1">
+            <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">New Email</p>
+            <span className="text-xs text-slate-400">{emailData.time}</span>
+          </div>
+          <p className="font-bold text-sm truncate mb-1 pr-4">{emailData.subject}</p>
+          <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">{emailData.preview}</p>
+        </div>
+
+        <button 
+          onClick={(e) => { e.stopPropagation(); setShow(false) }}
+          className="absolute top-2 right-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 opacity-0 group-hover:opacity-100 transition-opacity"
+        >
+          <CloseIcon className="w-4 h-4" />
+        </button>
+      </div>
+    </div>
+  )
+}
+
