@@ -78,7 +78,7 @@ export default function CreateEventPage() {
     const newEvent = events.create({
       title,
       description,
-      bannerImage: bannerImage || 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&q=80',
+      bannerImage: bannerImage || '/assets/images/hero_india.png',
       startDate: new Date(startDate).toISOString(),
       endDate: new Date(endDate).toISOString(),
       venue,
@@ -295,7 +295,7 @@ export default function CreateEventPage() {
               <CardContent className="space-y-4">
                 <div className="border rounded-lg p-4">
                   <img 
-                    src={bannerImage || 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&q=80'} 
+                    src={bannerImage || '/assets/images/hero_india.png'} 
                     alt={title}
                     className="w-full h-48 object-cover rounded-lg mb-4"
                   />
@@ -331,7 +331,7 @@ export default function CreateEventPage() {
                     {ticketTypes.map((tt, i) => (
                       <div key={i} className="flex justify-between text-sm">
                         <span>{tt.name}</span>
-                        <span className="font-medium">${tt.price} × {tt.quantityTotal}</span>
+                        <span className="font-medium">₹{tt.price} × {tt.quantityTotal}</span>
                       </div>
                     ))}
                   </div>

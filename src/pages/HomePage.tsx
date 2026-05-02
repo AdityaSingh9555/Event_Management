@@ -43,7 +43,7 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white py-20 px-4">
         <div className="absolute inset-0 opacity-20">
-          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1600&q=80')] bg-cover bg-center" />
+          <div className="absolute inset-0 bg-[url('/assets/images/hero_india.png')] bg-cover bg-center" />
         </div>
         <div className="relative max-w-6xl mx-auto text-center">
           <Badge variant="secondary" className="mb-4 text-sm">

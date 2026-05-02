@@ -7,22 +7,30 @@ const DEMO_USERS: User[] = [
   { id: 'org-1', email: 'organizer@eventhub.com', name: 'Event Organizer', role: 'organizer', createdAt: '2024-01-01' },
   { id: 'org-2', email: 'music@eventhub.com', name: 'Music Events Inc', role: 'organizer', createdAt: '2024-01-01' },
   { id: 'user-1', email: 'attendee@eventhub.com', name: 'John Attendee', role: 'attendee', createdAt: '2024-01-01' },
+  { id: 'user-2', email: 'alice@example.com', name: 'Alice Smith', role: 'attendee', createdAt: '2024-02-15' },
+  { id: 'user-3', email: 'bob@example.com', name: 'Bob Johnson', role: 'attendee', createdAt: '2024-03-20' },
+  { id: 'user-4', email: 'charlie@example.com', name: 'Charlie Davis', role: 'attendee', createdAt: '2024-04-10' },
+  { id: 'org-3', email: 'tech@eventhub.com', name: 'Tech Conferences LLC', role: 'organizer', createdAt: '2024-05-05' },
+  { id: 'user-5', email: 'diana@example.com', name: 'Diana Prince', role: 'attendee', createdAt: '2024-06-12' },
+  { id: 'user-6', email: 'evan@example.com', name: 'Evan Wright', role: 'attendee', createdAt: '2024-07-25' },
+  { id: 'admin-2', email: 'superadmin@eventhub.com', name: 'Super Admin', role: 'admin', createdAt: '2024-08-01' },
+  { id: 'user-7', email: 'frank@example.com', name: 'Frank Ocean', role: 'attendee', createdAt: '2024-08-10' },
 ]
 
 const DEMO_VENUES = [
-  { id: 'venue-1', name: 'Madison Square Garden', address: '4 Pennsylvania Plaza', city: 'New York', capacity: 20789, seatingLayout: 'assigned' as const },
-  { id: 'venue-2', name: 'O2 Arena', address: 'Peninsula Square', city: 'London', capacity: 20000, seatingLayout: 'assigned' as const },
-  { id: 'venue-3', name: 'Tech Convention Center', address: '500 W Madison St', city: 'Chicago', capacity: 5000, seatingLayout: 'general' as const },
-  { id: 'venue-4', name: 'Central Park', address: 'Central Park West', city: 'New York', capacity: 50000, seatingLayout: 'general' as const },
-  { id: 'venue-5', name: 'The Comedy Club', address: '123 Main St', city: 'Los Angeles', capacity: 200, seatingLayout: 'general' as const },
+  { id: 'venue-1', name: 'Jio World Convention Centre', address: 'G Block, Bandra Kurla Complex', city: 'Mumbai', capacity: 20000, seatingLayout: 'assigned' as const },
+  { id: 'venue-2', name: 'Indira Gandhi Arena', address: 'Indraprastha Estate', city: 'New Delhi', capacity: 14348, seatingLayout: 'assigned' as const },
+  { id: 'venue-3', name: 'Bangalore International Exhibition Centre', address: '10th Mile, Tumkur Road', city: 'Bengaluru', capacity: 5000, seatingLayout: 'general' as const },
+  { id: 'venue-4', name: 'MMRDA Grounds', address: 'Bandra Kurla Complex', city: 'Mumbai', capacity: 50000, seatingLayout: 'general' as const },
+  { id: 'venue-5', name: 'The Canvas Laugh Club', address: 'Lower Parel', city: 'Mumbai', capacity: 200, seatingLayout: 'general' as const },
 ]
 
 const DEMO_EVENTS: Event[] = [
   {
     id: 'event-1',
-    title: 'Summer Music Festival 2026',
+    title: 'Sunburn Music Festival 2026',
     description: 'The biggest music festival of the year featuring top artists from around the world. Three days of non-stop music, food, and fun.',
-    bannerImage: 'https://images.unsplash.com/photo-1459749411177-0473ef716175?w=800&q=80',
+    bannerImage: '/assets/images/festival_india.png',
     startDate: '2026-06-15T14:00:00',
     endDate: '2026-06-17T23:00:00',
     venue: DEMO_VENUES[3],
@@ -32,18 +40,18 @@ const DEMO_EVENTS: Event[] = [
     organizerId: 'org-2',
     organizerName: 'Music Events Inc',
     ticketTypes: [
-      { id: 'tt-1-1', name: 'General Admission', description: 'Full festival access', price: 199, currency: 'USD', quantityTotal: 5000, quantitySold: 3240, quantityHeld: 50, maxPerOrder: 10, eventId: 'event-1' },
-      { id: 'tt-1-2', name: 'VIP Pass', description: 'VIP area access + free drinks', price: 499, currency: 'USD', quantityTotal: 500, quantitySold: 380, quantityHeld: 10, maxPerOrder: 4, eventId: 'event-1' },
-      { id: 'tt-1-3', name: 'Early Bird', description: 'Limited early bird pricing', price: 149, currency: 'USD', quantityTotal: 1000, quantitySold: 1000, quantityHeld: 0, maxPerOrder: 2, eventId: 'event-1' },
+      { id: 'tt-1-1', name: 'General Admission', description: 'Full festival access', price: 2999, currency: 'INR', quantityTotal: 5000, quantitySold: 3240, quantityHeld: 50, maxPerOrder: 10, eventId: 'event-1' },
+      { id: 'tt-1-2', name: 'VIP Pass', description: 'VIP area access + free drinks', price: 7999, currency: 'INR', quantityTotal: 500, quantitySold: 380, quantityHeld: 10, maxPerOrder: 4, eventId: 'event-1' },
+      { id: 'tt-1-3', name: 'Early Bird', description: 'Limited early bird pricing', price: 1999, currency: 'INR', quantityTotal: 1000, quantitySold: 1000, quantityHeld: 0, maxPerOrder: 2, eventId: 'event-1' },
     ],
     createdAt: '2026-01-15',
     updatedAt: '2026-03-01',
   },
   {
     id: 'event-2',
-    title: 'Tech Summit 2026',
+    title: 'India Tech Summit 2026',
     description: 'Annual technology conference bringing together industry leaders, developers, and innovators. Keynotes, workshops, and networking.',
-    bannerImage: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80',
+    bannerImage: '/assets/images/conference_india.png',
     startDate: '2026-05-20T09:00:00',
     endDate: '2026-05-22T18:00:00',
     venue: DEMO_VENUES[2],
@@ -53,50 +61,50 @@ const DEMO_EVENTS: Event[] = [
     organizerId: 'org-1',
     organizerName: 'Event Organizer',
     ticketTypes: [
-      { id: 'tt-2-1', name: 'Standard Pass', description: 'Conference access + lunch', price: 299, currency: 'USD', quantityTotal: 800, quantitySold: 520, quantityHeld: 15, maxPerOrder: 5, eventId: 'event-2' },
-      { id: 'tt-2-2', name: 'Premium Pass', description: 'Workshop access + networking dinner', price: 599, currency: 'USD', quantityTotal: 200, quantitySold: 145, quantityHeld: 5, maxPerOrder: 3, eventId: 'event-2' },
-      { id: 'tt-2-3', name: 'Student Pass', description: 'Valid student ID required', price: 99, currency: 'USD', quantityTotal: 300, quantitySold: 210, quantityHeld: 8, maxPerOrder: 1, eventId: 'event-2' },
+      { id: 'tt-2-1', name: 'Standard Pass', description: 'Conference access + lunch', price: 4999, currency: 'INR', quantityTotal: 800, quantitySold: 520, quantityHeld: 15, maxPerOrder: 5, eventId: 'event-2' },
+      { id: 'tt-2-2', name: 'Premium Pass', description: 'Workshop access + networking dinner', price: 9999, currency: 'INR', quantityTotal: 200, quantitySold: 145, quantityHeld: 5, maxPerOrder: 3, eventId: 'event-2' },
+      { id: 'tt-2-3', name: 'Student Pass', description: 'Valid student ID required', price: 999, currency: 'INR', quantityTotal: 300, quantitySold: 210, quantityHeld: 8, maxPerOrder: 1, eventId: 'event-2' },
     ],
     createdAt: '2026-02-01',
     updatedAt: '2026-04-01',
   },
   {
     id: 'event-3',
-    title: 'NBA Finals Watch Party',
-    description: 'Watch the NBA Finals on giant screens with thousands of fans. Food trucks, beer garden, and live entertainment.',
-    bannerImage: 'https://images.unsplash.com/photo-1504450758481-7338eba7524a?w=800&q=80',
+    title: 'IPL Finals Watch Party',
+    description: 'Watch the IPL Finals on giant screens with thousands of fans. Food trucks, beer garden, and live entertainment.',
+    bannerImage: '/assets/images/sports_india.png',
     startDate: '2026-06-08T19:00:00',
     endDate: '2026-06-08T23:00:00',
     venue: DEMO_VENUES[0],
     category: 'sports',
-    tags: ['sports', 'basketball', 'watch-party', 'social'],
+    tags: ['sports', 'cricket', 'watch-party', 'social'],
     status: 'published',
     organizerId: 'org-1',
     organizerName: 'Event Organizer',
     ticketTypes: [
-      { id: 'tt-3-1', name: 'General Admission', description: 'Watch party access', price: 45, currency: 'USD', quantityTotal: 3000, quantitySold: 2100, quantityHeld: 30, maxPerOrder: 8, eventId: 'event-3' },
-      { id: 'tt-3-2', name: 'Courtside Experience', description: 'Premium seating + meet & greet', price: 199, currency: 'USD', quantityTotal: 200, quantitySold: 150, quantityHeld: 5, maxPerOrder: 2, eventId: 'event-3' },
+      { id: 'tt-3-1', name: 'General Admission', description: 'Watch party access', price: 499, currency: 'INR', quantityTotal: 3000, quantitySold: 2100, quantityHeld: 30, maxPerOrder: 8, eventId: 'event-3' },
+      { id: 'tt-3-2', name: 'VIP Experience', description: 'Premium seating + meet & greet', price: 1999, currency: 'INR', quantityTotal: 200, quantitySold: 150, quantityHeld: 5, maxPerOrder: 2, eventId: 'event-3' },
     ],
     createdAt: '2026-03-15',
     updatedAt: '2026-04-10',
   },
   {
     id: 'event-4',
-    title: 'Hamilton - Broadway Tour',
-    description: 'The revolutionary musical returns. Experience the story of America then, told by America now.',
-    bannerImage: 'https://images.unsplash.com/photo-1503095392236-fc6a23bd1237?w=800&q=80',
+    title: 'Mughal-e-Azam: The Musical',
+    description: 'The spectacular musical based on the classic film. Experience the epic romance.',
+    bannerImage: '/assets/images/theater_india.png',
     startDate: '2026-07-10T20:00:00',
     endDate: '2026-07-10T23:00:00',
     venue: DEMO_VENUES[1],
     category: 'theater',
-    tags: ['theater', 'musical', 'broadway', 'arts'],
+    tags: ['theater', 'musical', 'arts'],
     status: 'published',
     organizerId: 'org-2',
     organizerName: 'Music Events Inc',
     ticketTypes: [
-      { id: 'tt-4-1', name: 'Orchestra', description: 'Best seats in the house', price: 250, currency: 'USD', quantityTotal: 500, quantitySold: 420, quantityHeld: 10, maxPerOrder: 6, eventId: 'event-4' },
-      { id: 'tt-4-2', name: 'Mezzanine', description: 'Elevated view', price: 150, currency: 'USD', quantityTotal: 400, quantitySold: 310, quantityHeld: 8, maxPerOrder: 6, eventId: 'event-4' },
-      { id: 'tt-4-3', name: 'Balcony', description: 'Affordable option', price: 75, currency: 'USD', quantityTotal: 300, quantitySold: 200, quantityHeld: 5, maxPerOrder: 6, eventId: 'event-4' },
+      { id: 'tt-4-1', name: 'Orchestra', description: 'Best seats in the house', price: 5000, currency: 'INR', quantityTotal: 500, quantitySold: 420, quantityHeld: 10, maxPerOrder: 6, eventId: 'event-4' },
+      { id: 'tt-4-2', name: 'Mezzanine', description: 'Elevated view', price: 2500, currency: 'INR', quantityTotal: 400, quantitySold: 310, quantityHeld: 8, maxPerOrder: 6, eventId: 'event-4' },
+      { id: 'tt-4-3', name: 'Balcony', description: 'Affordable option', price: 1000, currency: 'INR', quantityTotal: 300, quantitySold: 200, quantityHeld: 5, maxPerOrder: 6, eventId: 'event-4' },
     ],
     createdAt: '2026-02-20',
     updatedAt: '2026-03-20',
@@ -104,8 +112,8 @@ const DEMO_EVENTS: Event[] = [
   {
     id: 'event-5',
     title: 'Stand-Up Comedy Night',
-    description: 'An evening of laughter with top comedians. Featuring 5 comedians, open bar, and great vibes.',
-    bannerImage: 'https://images.unsplash.com/photo-1516280440614-6697288d5d38?w=800&q=80',
+    description: 'An evening of laughter with top Indian comedians. Featuring 5 comedians, open bar, and great vibes.',
+    bannerImage: '/assets/images/comedy_india.png',
     startDate: '2026-05-15T20:00:00',
     endDate: '2026-05-15T23:00:00',
     venue: DEMO_VENUES[4],
@@ -115,7 +123,7 @@ const DEMO_EVENTS: Event[] = [
     organizerId: 'org-1',
     organizerName: 'Event Organizer',
     ticketTypes: [
-      { id: 'tt-5-1', name: 'General Admission', description: 'Show access', price: 35, currency: 'USD', quantityTotal: 180, quantitySold: 120, quantityHeld: 5, maxPerOrder: 6, eventId: 'event-5' },
+      { id: 'tt-5-1', name: 'General Admission', description: 'Show access', price: 499, currency: 'INR', quantityTotal: 180, quantitySold: 120, quantityHeld: 5, maxPerOrder: 6, eventId: 'event-5' },
     ],
     createdAt: '2026-04-01',
     updatedAt: '2026-04-15',
@@ -144,9 +152,52 @@ const STORAGE_KEYS = {
 function initStorage() {
   if (!localStorage.getItem(STORAGE_KEYS.users)) {
     localStorage.setItem(STORAGE_KEYS.users, JSON.stringify(DEMO_USERS))
+  } else {
+    try {
+      const storedUsers = JSON.parse(localStorage.getItem(STORAGE_KEYS.users) || '[]');
+      let usersUpdated = false;
+      DEMO_USERS.forEach((demoUser: User) => {
+        if (!storedUsers.some((u: User) => u.id === demoUser.id)) {
+          storedUsers.push(demoUser);
+          usersUpdated = true;
+        }
+      });
+      if (usersUpdated) {
+        localStorage.setItem(STORAGE_KEYS.users, JSON.stringify(storedUsers));
+      }
+    } catch (err) {
+      console.error('Failed to parse users for migration', err);
+    }
   }
   if (!localStorage.getItem(STORAGE_KEYS.events)) {
     localStorage.setItem(STORAGE_KEYS.events, JSON.stringify(DEMO_EVENTS))
+  } else {
+    // Fix broken demo images in existing local storage
+    try {
+      const storedEvents = JSON.parse(localStorage.getItem(STORAGE_KEYS.events) || '[]');
+      let updated = false;
+      
+      // Fix broken demo images and update to Indian venues
+      storedEvents.forEach((e: Event) => {
+        const matchingDemoEvent = DEMO_EVENTS.find(de => de.id === e.id);
+        if (matchingDemoEvent) {
+          // Update venue, title, description, and currency if it's a demo event
+          if (e.venue.city !== matchingDemoEvent.venue.city || e.title !== matchingDemoEvent.title || e.bannerImage !== matchingDemoEvent.bannerImage) {
+            e.venue = matchingDemoEvent.venue;
+            e.title = matchingDemoEvent.title;
+            e.description = matchingDemoEvent.description;
+            e.ticketTypes = matchingDemoEvent.ticketTypes;
+            e.bannerImage = matchingDemoEvent.bannerImage;
+            updated = true;
+          }
+        }
+      });
+      if (updated) {
+        localStorage.setItem(STORAGE_KEYS.events, JSON.stringify(storedEvents));
+      }
+    } catch (err) {
+      console.error('Failed to parse events for migration', err);
+    }
   }
   if (!localStorage.getItem(STORAGE_KEYS.orders)) {
     localStorage.setItem(STORAGE_KEYS.orders, JSON.stringify([]))

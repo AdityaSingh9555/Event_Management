@@ -219,7 +219,7 @@ function DashboardTab({ totalRevenue, totalTickets, totalAttendees, publishedEve
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="date" />
-                <YAxis tickFormatter={(value) => `$${value}`} />
+                <YAxis tickFormatter={(value) => `₹${value}`} />
                 <Tooltip formatter={(value: number) => formatCurrency(value)} />
                 <Area type="monotone" dataKey="revenue" stroke="#6366f1" fillOpacity={1} fill="url(#colorRevenue)" />
               </AreaChart>
@@ -396,7 +396,7 @@ function CreateEventTab({ editEvent, onSuccess, onCancel }: {
     const eventData = {
       title: formData.title,
       description: formData.description,
-      bannerImage: formData.bannerImage || 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&q=80',
+      bannerImage: formData.bannerImage || '/assets/images/hero_india.png',
       startDate: formData.startDate,
       endDate: formData.endDate,
       venue: {
@@ -631,7 +631,7 @@ function CreateEventTab({ editEvent, onSuccess, onCancel }: {
                 <div className="grid grid-cols-3 gap-3">
                   <Input 
                     type="number"
-                    placeholder="Price ($)"
+                    placeholder="Price (₹)"
                     value={tt.price}
                     onChange={e => updateTicketType(index, 'price', Number(e.target.value))}
                     required
