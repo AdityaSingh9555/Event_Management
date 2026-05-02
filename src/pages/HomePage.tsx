@@ -53,13 +53,13 @@ export default function HomePage() {
   const [isCopied, setIsCopied] = useState(false)
 
   const handleCopyCode = () => {
-    navigator.clipboard.writeText('EVENTHUB')
+    navigator.clipboard.writeText('EVENTHUB100')
     setIsCopied(true)
     setTimeout(() => setIsCopied(false), 2000)
   }
 
   const handleShare = (platform: string) => {
-    const text = 'Use my code EVENTHUB to get 15% off your first event ticket on EventHub! Earn ₹100 for every friend who joins!'
+    const text = 'Use my code EVENTHUB100 to get 15% off your first event ticket on EventHub! Earn ₹100 for every friend who joins!'
     const url = window.location.origin
     
     if (platform === 'whatsapp') {
@@ -305,7 +305,7 @@ export default function HomePage() {
               
               <div className="flex flex-col gap-4">
                 <div className="bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl p-2 flex items-center justify-between w-full max-w-sm mx-auto md:mx-0">
-                  <code className="text-xl font-bold tracking-widest text-white px-4">EVENTHUB</code>
+                  <code className="text-xl font-bold tracking-widest text-white px-4">EVENTHUB100</code>
                   <Button 
                     variant="secondary" 
                     className={`rounded-xl font-bold transition-all ${isCopied ? 'bg-emerald-500 hover:bg-emerald-600 text-white' : 'bg-white text-slate-900 hover:bg-slate-200'}`}
@@ -315,17 +315,35 @@ export default function HomePage() {
                   </Button>
                 </div>
                 
-                <div className="flex items-center gap-3 justify-center md:justify-start">
-                  <span className="text-sm font-medium text-slate-400">Share via:</span>
-                  <Button variant="outline" size="icon" className="rounded-full bg-white/5 border-white/10 hover:bg-white/20 text-white" onClick={() => handleShare('whatsapp')}>
-                    <MessageCircle className="w-4 h-4" />
-                  </Button>
-                  <Button variant="outline" size="icon" className="rounded-full bg-white/5 border-white/10 hover:bg-white/20 text-white" onClick={() => handleShare('instagram')}>
-                    <Instagram className="w-4 h-4" />
-                  </Button>
-                  <Button variant="outline" size="icon" className="rounded-full bg-white/5 border-white/10 hover:bg-white/20 text-white" onClick={() => handleShare('other')}>
-                    <Share2 className="w-4 h-4" />
-                  </Button>
+                <div className="flex items-center gap-4 justify-center md:justify-start mt-2">
+                  <span className="text-sm font-semibold text-slate-300 uppercase tracking-wider">Share via</span>
+                  
+                  {/* WhatsApp Branded Button */}
+                  <button 
+                    onClick={() => handleShare('whatsapp')}
+                    className="w-10 h-10 rounded-full bg-[#25D366] hover:bg-[#20bd5a] flex items-center justify-center transition-all shadow-lg shadow-[#25D366]/20"
+                    title="Share on WhatsApp"
+                  >
+                    <MessageCircle className="w-5 h-5 text-white fill-white" />
+                  </button>
+
+                  {/* Instagram Branded Button */}
+                  <button 
+                    onClick={() => handleShare('instagram')}
+                    className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] hover:opacity-90 flex items-center justify-center transition-all shadow-lg shadow-[#dc2743]/20"
+                    title="Share on Instagram"
+                  >
+                    <Instagram className="w-5 h-5 text-white" />
+                  </button>
+
+                  {/* Generic Share Button */}
+                  <button 
+                    onClick={() => handleShare('other')}
+                    className="w-10 h-10 rounded-full bg-slate-700 hover:bg-slate-600 flex items-center justify-center transition-all shadow-lg"
+                    title="More options"
+                  >
+                    <Share2 className="w-5 h-5 text-white" />
+                  </button>
                 </div>
               </div>
             </div>
