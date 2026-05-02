@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ShoppingCart, Trash2, Minus, Plus, ArrowLeft, Tag, AlertTriangle, CreditCard, Loader2, CheckCircle2, QrCode } from 'lucide-react'
-import { QRCodeSVG } from 'qrcode.react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -335,12 +334,11 @@ export default function CartPage() {
                   <h3 className="text-xl font-bold mb-2">Scan to Pay</h3>
                   <p className="text-muted-foreground mb-6">Scan with any UPI app (GPay, PhonePe, Paytm)</p>
                   
-                  <div className="bg-white p-4 rounded-xl border-2 border-primary/20 shadow-inner mb-6">
-                    <QRCodeSVG 
-                      value={`upi://pay?pa=aditya2006march-6@okicici&pn=EventHub&am=${total}&cu=INR`}
-                      size={200}
-                      level="H"
-                      includeMargin={true}
+                  <div className="bg-white p-2 rounded-xl border-2 border-primary/20 shadow-inner mb-6">
+                    <img 
+                      src="/upi-qr.jpg" 
+                      alt="UPI QR Code" 
+                      className="w-48 h-48 object-cover rounded-lg"
                     />
                   </div>
 
