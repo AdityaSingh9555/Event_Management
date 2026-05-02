@@ -27,12 +27,33 @@ export default function TicketsPage() {
     
     try {
       setIsDownloading(true)
+      
+      // html2canvas bug workaround: temporarily swap the QR canvas for an image
+      const qrCanvas = ticketRef.current.querySelector('canvas')
+      let imgTemp: HTMLImageElement | null = null
+      
+      if (qrCanvas) {
+        imgTemp = document.createElement('img')
+        imgTemp.src = qrCanvas.toDataURL('image/png')
+        imgTemp.style.width = '200px'
+        imgTemp.style.height = '200px'
+        
+        qrCanvas.style.display = 'none'
+        qrCanvas.parentNode?.insertBefore(imgTemp, qrCanvas)
+      }
+
       const canvas = await html2canvas(ticketRef.current, {
         scale: 2, // Higher quality
         useCORS: true,
         backgroundColor: '#ffffff'
       })
       
+      // Restore the canvas
+      if (qrCanvas && imgTemp) {
+        qrCanvas.style.display = ''
+        imgTemp.remove()
+      }
+
       const imgData = canvas.toDataURL('image/png')
       const pdf = new jsPDF({
         orientation: 'portrait',
