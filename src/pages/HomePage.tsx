@@ -331,37 +331,42 @@ function FeaturedEventCard({ event }: { event: Event }) {
   const totalAvailable = event.ticketTypes.reduce((sum, t) => sum + (t.quantityTotal - t.quantitySold - t.quantityHeld), 0)
 
   return (
-    <Card className="overflow-hidden group cursor-pointer hover:shadow-xl transition-all">
-      <Link to={`/events/${event.id}`}>
-        <div className="relative h-48 overflow-hidden">
+    <Card className="overflow-hidden group cursor-pointer border-0 shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 rounded-3xl bg-white h-full flex flex-col">
+      <Link to={`/events/${event.id}`} className="flex flex-col h-full">
+        <div className="relative h-56 overflow-hidden shrink-0">
+          <div className="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
           <img 
             src={event.bannerImage || '/placeholder-event.jpg'} 
             alt={event.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
           />
-          <div className="absolute top-3 left-3">
-            <Badge variant="secondary" className="bg-white/90 backdrop-blur">
-              {event.category}
+          <div className="absolute top-4 left-4 z-20">
+            <Badge variant="secondary" className="bg-white/95 text-slate-900 backdrop-blur shadow-sm font-bold px-3 py-1 text-xs tracking-wider">
+              {event.category.toUpperCase()}
             </Badge>
           </div>
-          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-            <p className="text-white text-sm font-medium">
+          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-950 via-slate-900/60 to-transparent p-5 z-20">
+            <p className="text-white/90 text-sm font-medium flex items-center">
+              <Calendar className="w-4 h-4 mr-2" />
               {formatDateShort(event.startDate)}
             </p>
           </div>
         </div>
-        <CardContent className="p-4">
-          <h3 className="font-bold text-lg mb-2 line-clamp-1">{event.title}</h3>
-          <div className="flex items-center text-sm text-muted-foreground mb-3">
-            <MapPin className="w-4 h-4 mr-1" />
-            {event.venue.city}
+        <CardContent className="p-6 flex flex-col grow">
+          <h3 className="font-extrabold text-xl mb-3 line-clamp-2 group-hover:text-indigo-600 transition-colors">{event.title}</h3>
+          <div className="flex items-center text-sm text-slate-500 mb-6 font-medium mt-auto">
+            <MapPin className="w-4 h-4 mr-1.5 text-slate-400 shrink-0" />
+            <span className="truncate">{event.venue.name}, {event.venue.city}</span>
           </div>
-          <div className="flex items-center justify-between">
-            <span className="font-bold text-lg">{formatCurrency(minPrice)}</span>
-            <span className="text-sm text-muted-foreground flex items-center">
-              <Users className="w-4 h-4 mr-1" />
-              {totalAvailable} left
-            </span>
+          <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+            <div className="flex flex-col">
+              <span className="text-xs text-slate-400 uppercase font-bold tracking-wider mb-0.5">Starting at</span>
+              <span className="font-extrabold text-xl text-slate-900">{formatCurrency(minPrice)}</span>
+            </div>
+            <div className={`flex items-center px-3 py-1.5 rounded-full text-sm font-bold ${totalAvailable > 0 ? 'bg-indigo-50 text-indigo-700' : 'bg-rose-50 text-rose-600'}`}>
+              <Ticket className="w-4 h-4 mr-1.5" />
+              {totalAvailable > 0 ? `${totalAvailable} Left` : 'Sold Out'}
+            </div>
           </div>
         </CardContent>
       </Link>
@@ -374,34 +379,35 @@ function EventCard({ event }: { event: Event }) {
   const totalAvailable = event.ticketTypes.reduce((sum, t) => sum + (t.quantityTotal - t.quantitySold - t.quantityHeld), 0)
 
   return (
-    <Card className="overflow-hidden group cursor-pointer hover:shadow-lg transition-all">
-      <Link to={`/events/${event.id}`}>
-        <div className="relative h-40 overflow-hidden">
+    <Card className="overflow-hidden group cursor-pointer border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 rounded-2xl bg-white flex flex-col h-full">
+      <Link to={`/events/${event.id}`} className="flex flex-col h-full">
+        <div className="relative h-48 overflow-hidden shrink-0">
+          <div className="absolute inset-0 bg-slate-900/10 group-hover:bg-transparent transition-colors duration-500 z-10" />
           <img 
             src={event.bannerImage || '/placeholder-event.jpg'} 
             alt={event.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
           />
-          <div className="absolute top-2 left-2">
-            <Badge variant="secondary" className="text-xs bg-white/90 backdrop-blur">
+          <div className="absolute top-3 left-3 z-20">
+            <Badge variant="secondary" className="text-[10px] uppercase font-bold tracking-wider bg-white/95 text-slate-900 backdrop-blur shadow-sm px-2.5 py-0.5">
               {event.category}
             </Badge>
           </div>
         </div>
-        <CardContent className="p-4">
-          <p className="text-xs text-muted-foreground mb-1 flex items-center">
-            <Calendar className="w-3 h-3 mr-1" />
+        <CardContent className="p-5 flex flex-col grow">
+          <p className="text-xs text-indigo-600 font-bold mb-3 flex items-center bg-indigo-50/50 w-fit px-2.5 py-1 rounded-md">
+            <Calendar className="w-3 h-3 mr-1.5" />
             {formatDateShort(event.startDate)}
           </p>
-          <h3 className="font-bold text-base mb-1 line-clamp-1">{event.title}</h3>
-          <p className="text-xs text-muted-foreground mb-3 flex items-center">
-            <MapPin className="w-3 h-3 mr-1" />
-            {event.venue.name}, {event.venue.city}
+          <h3 className="font-bold text-base mb-3 line-clamp-2 group-hover:text-indigo-600 transition-colors leading-tight">{event.title}</h3>
+          <p className="text-xs text-slate-500 mb-5 flex items-center font-medium mt-auto">
+            <MapPin className="w-3.5 h-3.5 mr-1.5 shrink-0 text-slate-400" />
+            <span className="truncate">{event.venue.name}, {event.venue.city}</span>
           </p>
-          <div className="flex items-center justify-between">
-            <span className="font-bold">{formatCurrency(minPrice)}</span>
-            <span className="text-xs text-muted-foreground flex items-center">
-              <Ticket className="w-3 h-3 mr-1" />
+          <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+            <span className="font-extrabold text-slate-900 text-lg">{formatCurrency(minPrice)}</span>
+            <span className={`text-xs font-bold flex items-center ${totalAvailable > 0 ? 'text-emerald-600' : 'text-rose-500'}`}>
+              <Ticket className="w-3.5 h-3.5 mr-1" />
               {totalAvailable > 0 ? `${totalAvailable} left` : 'Sold out'}
             </span>
           </div>
