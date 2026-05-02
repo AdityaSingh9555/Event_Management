@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { Search, ShoppingCart, Ticket, LayoutDashboard, QrCode, Menu, X, LogOut, User, ChevronDown, Sparkles, Mail, X as CloseIcon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -215,48 +215,41 @@ function EmailNotification() {
   const [show, setShow] = useState(false)
   const [emailData, setEmailData] = useState<{ subject: string; preview: string; time: string } | null>(null)
 
-  useState(() => {
-    // Initial check for state when component mounts/remounts due to navigation
-  })
-
-  // We use useEffect to catch the location state changes
-  import('react').then(React => {
-    React.useEffect(() => {
-      const state = location.state as { emailType?: string } | null
-      if (state?.emailType) {
-        if (state.emailType === 'welcome') {
-          setEmailData({
-            subject: 'Welcome to EventHub! 🎉',
-            preview: 'Your account has been successfully created. Start exploring amazing events today.',
-            time: 'Just now'
-          })
-        } else if (state.emailType === 'order_confirmation') {
-          setEmailData({
-            subject: 'Your Tickets are Confirmed! 🎟️',
-            preview: 'Thank you for your purchase. Your e-tickets and receipt are attached.',
-            time: 'Just now'
-          })
-        }
-        setShow(true)
-        
-        // Play a subtle notification sound (optional, but adds to realism if supported)
-        try {
-          const audio = new Audio('/assets/notification.mp3') // If exists
-          audio.volume = 0.5
-          audio.play().catch(() => {})
-        } catch(e) {}
-
-        // Clear the state so it doesn't trigger again on refresh
-        const newState = { ...state }
-        delete newState.emailType
-        navigate(location.pathname, { replace: true, state: newState })
-
-        // Auto-hide after 6 seconds
-        const timer = setTimeout(() => setShow(false), 6000)
-        return () => clearTimeout(timer)
+  useEffect(() => {
+    const state = location.state as { emailType?: string } | null
+    if (state?.emailType) {
+      if (state.emailType === 'welcome') {
+        setEmailData({
+          subject: 'Welcome to EventHub! 🎉',
+          preview: 'Your account has been successfully created. Start exploring amazing events today.',
+          time: 'Just now'
+        })
+      } else if (state.emailType === 'order_confirmation') {
+        setEmailData({
+          subject: 'Your Tickets are Confirmed! 🎟️',
+          preview: 'Thank you for your purchase. Your e-tickets and receipt are attached.',
+          time: 'Just now'
+        })
       }
-    }, [location])
-  })
+      setShow(true)
+      
+      // Play a subtle notification sound (optional, but adds to realism if supported)
+      try {
+        const audio = new Audio('/assets/notification.mp3') // If exists
+        audio.volume = 0.5
+        audio.play().catch(() => {})
+      } catch(e) {}
+
+      // Clear the state so it doesn't trigger again on refresh
+      const newState = { ...state }
+      delete newState.emailType
+      navigate(location.pathname, { replace: true, state: newState })
+
+      // Auto-hide after 6 seconds
+      const timer = setTimeout(() => setShow(false), 6000)
+      return () => clearTimeout(timer)
+    }
+  }, [location, navigate])
 
   if (!show || !emailData) return null
 
