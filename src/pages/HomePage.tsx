@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Search, Calendar, MapPin, Ticket, Filter, ChevronRight, Star, Users, Zap, Quote, MessageSquare, Gift, Copy } from 'lucide-react'
+import { Search, Calendar, MapPin, Ticket, Filter, ChevronRight, Star, Users, Zap, Quote, MessageSquare, Gift, Copy, Check, Share2, Instagram, MessageCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -50,6 +50,45 @@ export default function HomePage() {
   const [newName, setNewName] = useState('')
   const [newContent, setNewContent] = useState('')
   const [isSubmittingFeedback, setIsSubmittingFeedback] = useState(false)
+  const [isCopied, setIsCopied] = useState(false)
+
+  const handleCopyCode = () => {
+    navigator.clipboard.writeText('EVENTHUB')
+    setIsCopied(true)
+    setTimeout(() => setIsCopied(false), 2000)
+  }
+
+  const handleShare = (platform: string) => {
+    const text = 'Use my code EVENTHUB to get 15% off your first event ticket on EventHub! Earn ₹100 for every friend who joins!'
+    const url = window.location.origin
+    
+    if (platform === 'whatsapp') {
+      window.open(`https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`, '_blank')
+    } else if (platform === 'instagram') {
+      // Instagram doesn't have a direct share intent URL like WhatsApp, 
+      // but we can trigger native sharing on mobile
+      if (navigator.share) {
+        navigator.share({
+          title: 'Join EventHub!',
+          text: text,
+          url: url
+        }).catch(console.error)
+      } else {
+        handleCopyCode()
+        alert('Code copied! You can now paste it into Instagram.')
+      }
+    } else {
+      if (navigator.share) {
+        navigator.share({
+          title: 'Join EventHub!',
+          text: text,
+          url: url
+        }).catch(console.error)
+      } else {
+        handleCopyCode()
+      }
+    }
+  }
 
   const handleFeedbackSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -264,11 +303,28 @@ export default function HomePage() {
                 Share your unique code. They get 15% off their first booking, and you get ₹100 in your EventHub wallet for every successful referral!
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
-                <div className="bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl p-2 flex items-center justify-between w-full max-w-sm">
+              <div className="flex flex-col gap-4">
+                <div className="bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl p-2 flex items-center justify-between w-full max-w-sm mx-auto md:mx-0">
                   <code className="text-xl font-bold tracking-widest text-white px-4">EVENTHUB</code>
-                  <Button variant="secondary" className="rounded-xl font-bold bg-white text-slate-900 hover:bg-slate-200">
-                    <Copy className="w-4 h-4 mr-2" /> Copy
+                  <Button 
+                    variant="secondary" 
+                    className={`rounded-xl font-bold transition-all ${isCopied ? 'bg-emerald-500 hover:bg-emerald-600 text-white' : 'bg-white text-slate-900 hover:bg-slate-200'}`}
+                    onClick={handleCopyCode}
+                  >
+                    {isCopied ? <><Check className="w-4 h-4 mr-2" /> Copied!</> : <><Copy className="w-4 h-4 mr-2" /> Copy</>}
+                  </Button>
+                </div>
+                
+                <div className="flex items-center gap-3 justify-center md:justify-start">
+                  <span className="text-sm font-medium text-slate-400">Share via:</span>
+                  <Button variant="outline" size="icon" className="rounded-full bg-white/5 border-white/10 hover:bg-white/20 text-white" onClick={() => handleShare('whatsapp')}>
+                    <MessageCircle className="w-4 h-4" />
+                  </Button>
+                  <Button variant="outline" size="icon" className="rounded-full bg-white/5 border-white/10 hover:bg-white/20 text-white" onClick={() => handleShare('instagram')}>
+                    <Instagram className="w-4 h-4" />
+                  </Button>
+                  <Button variant="outline" size="icon" className="rounded-full bg-white/5 border-white/10 hover:bg-white/20 text-white" onClick={() => handleShare('other')}>
+                    <Share2 className="w-4 h-4" />
                   </Button>
                 </div>
               </div>
