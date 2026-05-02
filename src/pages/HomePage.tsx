@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Search, Calendar, MapPin, Ticket, Filter, ChevronRight, Star, Users, Zap, Quote, MessageSquare } from 'lucide-react'
+import { Search, Calendar, MapPin, Ticket, Filter, ChevronRight, Star, Users, Zap, Quote, MessageSquare, Gift, Copy } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -242,6 +242,46 @@ export default function HomePage() {
             ))}
           </div>
         )}
+      </section>
+
+      {/* Refer and Earn Section */}
+      <section className="py-12 px-4 max-w-6xl mx-auto">
+        <div className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-indigo-900 via-purple-900 to-slate-900 text-white shadow-2xl border border-white/10">
+          {/* Decorative elements */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-pink-500/20 rounded-full blur-[80px]" />
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-500/20 rounded-full blur-[80px]" />
+          
+          <div className="relative p-8 md:p-16 flex flex-col md:flex-row items-center justify-between gap-10">
+            <div className="flex-1 text-center md:text-left">
+              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full text-pink-300 font-bold text-sm mb-6 border border-white/10">
+                <Gift className="w-4 h-4" />
+                Refer & Earn Program
+              </div>
+              <h2 className="text-4xl md:text-5xl font-extrabold mb-4 leading-tight">
+                Invite Friends, <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">Earn ₹500</span>
+              </h2>
+              <p className="text-lg text-slate-300 mb-8 max-w-xl">
+                Share your unique code. They get 15% off their first booking, and you get ₹500 in your EventHub wallet for every successful referral!
+              </p>
+              
+              <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
+                <div className="bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl p-2 flex items-center justify-between w-full max-w-sm">
+                  <code className="text-xl font-bold tracking-widest text-white px-4">ADITYA500</code>
+                  <Button variant="secondary" className="rounded-xl font-bold bg-white text-slate-900 hover:bg-slate-200">
+                    <Copy className="w-4 h-4 mr-2" /> Copy
+                  </Button>
+                </div>
+              </div>
+            </div>
+            
+            <div className="hidden lg:flex w-72 h-72 relative items-center justify-center shrink-0">
+              <div className="absolute inset-0 bg-gradient-to-tr from-pink-500 to-purple-500 rounded-full animate-pulse blur-3xl opacity-40" />
+              <div className="relative w-full h-full bg-white/10 backdrop-blur-2xl rounded-full border border-white/20 shadow-2xl flex items-center justify-center p-8">
+                 <Gift className="w-32 h-32 text-pink-300 drop-shadow-2xl" />
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Customer Feedback & Rating System */}
