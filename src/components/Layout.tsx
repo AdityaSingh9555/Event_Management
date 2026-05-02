@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
-import { Search, ShoppingCart, Ticket, LayoutDashboard, QrCode, Menu, X, LogOut, User, ChevronDown, Sparkles, Mail, X as CloseIcon } from 'lucide-react'
+import { Search, ShoppingCart, Ticket, LayoutDashboard, QrCode, Menu, X, LogOut, User, ChevronDown, Sparkles, Mail, X as CloseIcon, Sun, Moon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { useAuth, useCart } from '@/hooks/useStore'
@@ -12,6 +12,25 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const { totalItems } = useCart()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [userMenuOpen, setUserMenuOpen] = useState(false)
+  
+  const [isDark, setIsDark] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return document.documentElement.classList.contains('dark') || 
+             (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches))
+    }
+    return false
+  })
+
+  const toggleTheme = () => {
+    setIsDark(!isDark)
+    if (!isDark) {
+      document.documentElement.classList.add('dark')
+      localStorage.theme = 'dark'
+    } else {
+      document.documentElement.classList.remove('dark')
+      localStorage.theme = 'light'
+    }
+  }
 
   const isOrganizer = user?.role === 'organizer' || user?.role === 'admin'
   const isAdmin = user?.role === 'admin'
@@ -73,6 +92,17 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     {totalItems}
                   </Badge>
                 )}
+              </Button>
+
+              {/* Theme Toggle */}
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                onClick={toggleTheme} 
+                className="rounded-full"
+                title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
+              >
+                {isDark ? <Sun className="w-5 h-5 text-yellow-500" /> : <Moon className="w-5 h-5 text-slate-700" />}
               </Button>
 
               {/* Auth */}
@@ -149,6 +179,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 {item.label}
               </Link>
             ))}
+            
+            <div className="pt-2 mt-2 border-t">
+              <Button variant="ghost" className="w-full justify-start text-muted-foreground" onClick={() => { toggleTheme(); setMobileMenuOpen(false); }}>
+                {isDark ? <Sun className="w-4 h-4 mr-2 text-yellow-500" /> : <Moon className="w-4 h-4 mr-2 text-slate-700" />} 
+                {isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+              </Button>
+            </div>
           </div>
         )}
       </nav>
