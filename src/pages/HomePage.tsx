@@ -300,7 +300,7 @@ export default function HomePage() {
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             {feedbacks.slice(0, 3).map((feedback, idx) => (
-              <div key={idx} className="relative bg-white rounded-3xl p-8 border border-slate-100 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+              <div key={idx} className="relative bg-white rounded-3xl p-8 border border-slate-100 shadow-xl shadow-indigo-500/10 hover:shadow-2xl hover:shadow-indigo-500/30 hover:-translate-y-2 transition-all duration-300">
                 <Quote className="absolute top-6 right-6 w-12 h-12 text-indigo-500/10 rotate-180" />
                 <div className="flex gap-1 mb-6 text-yellow-400">
                   {Array.from({ length: 5 }).map((_, i) => (
