@@ -25,7 +25,7 @@ export default function Navbar() {
     <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 mr-8">
+        <Link to="/" className="flex items-center gap-2 mr-8 cursor-pointer select-none" onDoubleClick={() => window.location.reload()}>
           <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
             <Ticket className="w-5 h-5 text-white" />
           </div>
