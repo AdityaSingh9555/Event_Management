@@ -304,11 +304,11 @@ export default function HomePage() {
               </p>
               
               <div className="flex flex-col gap-4">
-                <div className="bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl p-2 flex items-center justify-between w-full max-w-sm mx-auto md:mx-0">
+                <div className="bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl p-2 flex items-center justify-between w-full max-w-sm mx-auto md:mx-0 shadow-2xl shadow-purple-500/30">
                   <code className="text-xl font-bold tracking-widest text-white px-4">EVENTHUB100</code>
                   <Button 
                     variant="secondary" 
-                    className={`rounded-xl font-bold transition-all ${isCopied ? 'bg-emerald-500 hover:bg-emerald-600 text-white' : 'bg-white text-slate-900 hover:bg-slate-200'}`}
+                    className={`rounded-xl font-bold transition-all shadow-md ${isCopied ? 'bg-emerald-500 hover:bg-emerald-600 text-white shadow-emerald-500/30' : 'bg-white text-slate-900 hover:bg-slate-200 shadow-white/10'}`}
                     onClick={handleCopyCode}
                   >
                     {isCopied ? <><Check className="w-4 h-4 mr-2" /> Copied!</> : <><Copy className="w-4 h-4 mr-2" /> Copy</>}
