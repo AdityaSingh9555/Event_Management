@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
-import { Search, ShoppingCart, Ticket, LayoutDashboard, QrCode, Menu, X, LogOut, User, ChevronDown } from 'lucide-react'
+import { Search, ShoppingCart, Ticket, LayoutDashboard, QrCode, Menu, X, LogOut, User, ChevronDown, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { useAuth, useCart } from '@/hooks/useStore'
@@ -30,11 +30,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex h-16 items-center justify-between">
             {/* Logo */}
-            <Link to="/" className="flex items-center gap-2 cursor-pointer select-none" onDoubleClick={() => window.location.reload()}>
-              <div className="w-8 h-8 bg-gradient-to-br from-violet-600 to-blue-600 rounded-lg flex items-center justify-center">
-                <Ticket className="w-5 h-5 text-white" />
+            <Link to="/" className="flex items-center gap-3 cursor-pointer select-none group" onDoubleClick={() => window.location.reload()}>
+              <div className="relative w-10 h-10 bg-gradient-to-tr from-rose-500 via-purple-500 to-indigo-500 rounded-xl flex items-center justify-center shadow-lg shadow-purple-500/30 group-hover:shadow-purple-500/50 group-hover:scale-105 transition-all duration-300">
+                <div className="absolute inset-0 bg-white/20 rounded-xl blur-[2px]" />
+                <Sparkles className="w-6 h-6 text-white relative z-10 animate-pulse" />
               </div>
-              <span className="font-bold text-xl hidden sm:block">EventHub</span>
+              <span className="font-extrabold text-2xl tracking-tight hidden sm:block bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600 group-hover:from-rose-500 group-hover:to-purple-600 transition-all duration-500">
+                EventHub
+              </span>
             </Link>
 
             {/* Desktop Nav */}

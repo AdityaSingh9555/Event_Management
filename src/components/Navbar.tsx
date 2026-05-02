@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Search, ShoppingCart, Ticket, Menu, X, User, LogOut, LayoutDashboard, Calendar, QrCode } from 'lucide-react'
+import { Search, ShoppingCart, Ticket, Menu, X, User, LogOut, LayoutDashboard, Calendar, QrCode, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { useAuth } from '@/hooks/useStore'
@@ -25,11 +25,14 @@ export default function Navbar() {
     <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 mr-8 cursor-pointer select-none" onDoubleClick={() => window.location.reload()}>
-          <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-            <Ticket className="w-5 h-5 text-white" />
+        <Link to="/" className="flex items-center gap-3 mr-8 cursor-pointer select-none group" onDoubleClick={() => window.location.reload()}>
+          <div className="relative w-10 h-10 bg-gradient-to-tr from-rose-500 via-purple-500 to-indigo-500 rounded-xl flex items-center justify-center shadow-lg shadow-purple-500/30 group-hover:shadow-purple-500/50 group-hover:scale-105 transition-all duration-300">
+            <div className="absolute inset-0 bg-white/20 rounded-xl blur-[2px]" />
+            <Sparkles className="w-6 h-6 text-white relative z-10 animate-pulse" />
           </div>
-          <span className="font-bold text-xl hidden sm:block">EventHub</span>
+          <span className="font-extrabold text-2xl tracking-tight hidden sm:block bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600 group-hover:from-rose-500 group-hover:to-purple-600 transition-all duration-500">
+            EventHub
+          </span>
         </Link>
 
         {/* Search */}
