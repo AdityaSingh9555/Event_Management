@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { Ticket, QrCode, Download, Share2, AlertTriangle, CheckCircle, Clock, MapPin, Calendar } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -9,6 +9,8 @@ import { useTickets, useAuth } from '@/hooks/useStore'
 import { tickets as ticketsApi, events } from '@/lib/store'
 import { formatDate, formatCurrency } from '@/lib/utils'
 import type { Ticket as TicketType } from '@/types'
+import html2canvas from 'html2canvas'
+import jsPDF from 'jspdf'
 
 export default function TicketsPage() {
   const navigate = useNavigate()
@@ -17,6 +19,35 @@ export default function TicketsPage() {
   const { tickets: userTickets, refresh } = useTickets(user?.id)
   const [selectedTicket, setSelectedTicket] = useState<TicketType | null>(null)
   const [showSuccess, setShowSuccess] = useState(location.state?.success || false)
+  const [isDownloading, setIsDownloading] = useState(false)
+  const ticketRef = useRef<HTMLDivElement>(null)
+
+  const handleDownloadPDF = async () => {
+    if (!ticketRef.current || !selectedTicket) return
+    
+    try {
+      setIsDownloading(true)
+      const canvas = await html2canvas(ticketRef.current, {
+        scale: 2, // Higher quality
+        useCORS: true,
+        backgroundColor: '#ffffff'
+      })
+      
+      const imgData = canvas.toDataURL('image/png')
+      const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'px',
+        format: [canvas.width, canvas.height]
+      })
+      
+      pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height)
+      pdf.save(`Ticket-${selectedTicket.ticketCode}.pdf`)
+    } catch (error) {
+      console.error('Error generating PDF:', error)
+    } finally {
+      setIsDownloading(false)
+    }
+  }
 
   useEffect(() => {
     if (showSuccess) {
@@ -116,27 +147,33 @@ export default function TicketsPage() {
       {/* QR Modal */}
       {selectedTicket && (
         <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4" onClick={() => setSelectedTicket(null)}>
-          <div className="bg-white rounded-2xl p-8 max-w-sm w-full text-center" onClick={e => e.stopPropagation()}>
-            <h3 className="text-xl font-bold mb-2">{selectedTicket.eventTitle}</h3>
-            <p className="text-muted-foreground mb-6">{selectedTicket.ticketTypeName}</p>
+          <div className="bg-background rounded-2xl p-8 max-w-sm w-full text-center" onClick={e => e.stopPropagation()}>
+            {/* The area to capture */}
+            <div ref={ticketRef} className="bg-background p-6 rounded-xl border mb-6">
+              <h3 className="text-xl font-bold mb-2">{selectedTicket.eventTitle}</h3>
+              <p className="text-muted-foreground mb-6">{selectedTicket.ticketTypeName}</p>
 
-            <div className="bg-white p-4 rounded-xl inline-block mb-4">
-              <QRCodeSVG 
-                value={selectedTicket.qrCode} 
-                size={200}
-                level="H"
-                includeMargin={true}
-              />
+              <div className="bg-white p-4 rounded-xl inline-block mb-4 border shadow-sm">
+                <QRCodeSVG 
+                  value={selectedTicket.qrCode} 
+                  size={200}
+                  level="H"
+                  includeMargin={true}
+                />
+              </div>
+
+              <p className="text-sm font-mono text-muted-foreground mt-2">{selectedTicket.ticketCode}</p>
+              <p className="text-xs text-muted-foreground mt-4 pb-2 border-b">Valid for 1 Entry</p>
+              <h1 className="text-xl font-extrabold mt-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600">EventHub</h1>
             </div>
-
-            <p className="text-sm font-mono text-muted-foreground mb-6">{selectedTicket.ticketCode}</p>
 
             <div className="flex gap-2">
               <Button variant="outline" className="flex-1" onClick={() => setSelectedTicket(null)}>
                 Close
               </Button>
-              <Button variant="outline" className="flex-1">
-                <Download className="w-4 h-4 mr-2" /> Save
+              <Button className="flex-1" onClick={handleDownloadPDF} disabled={isDownloading}>
+                <Download className="w-4 h-4 mr-2" /> 
+                {isDownloading ? 'Saving...' : 'Save PDF'}
               </Button>
             </div>
           </div>

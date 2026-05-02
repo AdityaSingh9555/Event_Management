@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ShoppingCart, Trash2, Minus, Plus, ArrowLeft, Tag, AlertTriangle, CreditCard } from 'lucide-react'
+import { ShoppingCart, Trash2, Minus, Plus, ArrowLeft, Tag, AlertTriangle, CreditCard, Loader2, CheckCircle2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -17,6 +17,7 @@ export default function CartPage() {
   const [promoError, setPromoError] = useState('')
   const [appliedPromo, setAppliedPromo] = useState<{ code: string; discount: number; type: 'percentage' | 'fixed' } | null>(null)
   const [isCheckingOut, setIsCheckingOut] = useState(false)
+  const [paymentStep, setPaymentStep] = useState<'idle' | 'processing' | 'verifying' | 'success'>('idle')
   const currentUser = auth.getCurrentUser()
 
   const cartItems = items.map(item => {
@@ -61,9 +62,16 @@ export default function CartPage() {
     }
 
     setIsCheckingOut(true)
+    setPaymentStep('processing')
 
     // Simulate payment processing
-    await new Promise(resolve => setTimeout(resolve, 2000))
+    await new Promise(resolve => setTimeout(resolve, 1500))
+    setPaymentStep('verifying')
+    
+    await new Promise(resolve => setTimeout(resolve, 1500))
+    setPaymentStep('success')
+    
+    await new Promise(resolve => setTimeout(resolve, 800))
 
     // Group by event
     const eventGroups: Record<string, typeof cartItems> = {}
@@ -139,6 +147,7 @@ export default function CartPage() {
     // Clear cart
     clearCart()
     setIsCheckingOut(false)
+    setPaymentStep('idle')
 
     navigate('/tickets', { state: { success: true } })
   }
@@ -309,6 +318,37 @@ export default function CartPage() {
           </div>
         </div>
       </div>
+
+      {/* Payment Processing Modal */}
+      {isCheckingOut && (
+        <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <Card className="max-w-sm w-full shadow-2xl animate-in zoom-in-95 duration-200">
+            <CardContent className="p-8 text-center flex flex-col items-center">
+              {paymentStep === 'processing' && (
+                <>
+                  <Loader2 className="w-16 h-16 text-primary animate-spin mb-6" />
+                  <h3 className="text-xl font-bold mb-2">Processing Payment</h3>
+                  <p className="text-muted-foreground">Connecting to secure gateway...</p>
+                </>
+              )}
+              {paymentStep === 'verifying' && (
+                <>
+                  <Loader2 className="w-16 h-16 text-blue-500 animate-spin mb-6" />
+                  <h3 className="text-xl font-bold mb-2">Verifying Transaction</h3>
+                  <p className="text-muted-foreground">Confirming details with bank...</p>
+                </>
+              )}
+              {paymentStep === 'success' && (
+                <>
+                  <CheckCircle2 className="w-16 h-16 text-emerald-500 mb-6 animate-in bounce-in" />
+                  <h3 className="text-xl font-bold mb-2 text-emerald-600">Payment Successful!</h3>
+                  <p className="text-muted-foreground">Generating your tickets...</p>
+                </>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+      )}
     </div>
   )
 }

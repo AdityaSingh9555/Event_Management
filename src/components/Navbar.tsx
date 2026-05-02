@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Search, ShoppingCart, Ticket, Menu, X, User, LogOut, LayoutDashboard, Calendar, QrCode, Sparkles } from 'lucide-react'
+import { Search, ShoppingCart, Ticket, Menu, X, User, LogOut, LayoutDashboard, Calendar, QrCode, Sparkles, Moon, Sun } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { useAuth } from '@/hooks/useStore'
@@ -12,6 +12,24 @@ export default function Navbar() {
   const navigate = useNavigate()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
+  const [isDark, setIsDark] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return document.documentElement.classList.contains('dark') || 
+             (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches))
+    }
+    return false
+  })
+
+  const toggleTheme = () => {
+    setIsDark(!isDark)
+    if (!isDark) {
+      document.documentElement.classList.add('dark')
+      localStorage.theme = 'dark'
+    } else {
+      document.documentElement.classList.remove('dark')
+      localStorage.theme = 'light'
+    }
+  }
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
@@ -84,6 +102,10 @@ export default function Navbar() {
             </Button>
           </Link>
 
+          <Button variant="ghost" size="icon" onClick={toggleTheme} className="ml-1 rounded-full">
+            {isDark ? <Sun className="w-4 h-4 text-yellow-500" /> : <Moon className="w-4 h-4 text-slate-700" />}
+          </Button>
+
           {user ? (
             <div className="flex items-center gap-2 ml-2 pl-2 border-l">
               <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
@@ -150,6 +172,11 @@ export default function Navbar() {
               <ShoppingCart className="w-4 h-4 mr-2" /> Cart ({totalItems})
             </Button>
           </Link>
+
+          <Button variant="ghost" className="w-full justify-start" onClick={toggleTheme}>
+            {isDark ? <Sun className="w-4 h-4 mr-2 text-yellow-500" /> : <Moon className="w-4 h-4 mr-2 text-slate-700" />} 
+            {isDark ? 'Light Mode' : 'Dark Mode'}
+          </Button>
 
           {user ? (
             <>
