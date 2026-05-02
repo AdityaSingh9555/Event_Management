@@ -326,12 +326,56 @@ export default function HomePage() {
   )
 }
 
+const getCategoryTheme = (category: string) => {
+  const cat = category.toLowerCase();
+  if (['music', 'concert', 'festival'].includes(cat)) {
+    return {
+      shadow: 'shadow-rose-500/10 hover:shadow-rose-500/40',
+      textHover: 'group-hover:text-rose-600',
+      badgeBg: 'bg-rose-50/90 text-rose-700',
+      dateBg: 'bg-rose-50/80 text-rose-600',
+    }
+  }
+  if (['tech', 'workshop', 'hackathon'].includes(cat)) {
+    return {
+      shadow: 'shadow-cyan-500/10 hover:shadow-cyan-500/40',
+      textHover: 'group-hover:text-cyan-600',
+      badgeBg: 'bg-cyan-50/90 text-cyan-700',
+      dateBg: 'bg-cyan-50/80 text-cyan-600',
+    }
+  }
+  if (['business', 'networking', 'conference'].includes(cat)) {
+    return {
+      shadow: 'shadow-amber-500/10 hover:shadow-amber-500/40',
+      textHover: 'group-hover:text-amber-600',
+      badgeBg: 'bg-amber-50/90 text-amber-700',
+      dateBg: 'bg-amber-50/80 text-amber-600',
+    }
+  }
+  if (['sports', 'fitness', 'health'].includes(cat)) {
+    return {
+      shadow: 'shadow-emerald-500/10 hover:shadow-emerald-500/40',
+      textHover: 'group-hover:text-emerald-600',
+      badgeBg: 'bg-emerald-50/90 text-emerald-700',
+      dateBg: 'bg-emerald-50/80 text-emerald-600',
+    }
+  }
+  // Default / other categories (Art, Film, etc.)
+  return {
+    shadow: 'shadow-indigo-500/10 hover:shadow-indigo-500/40',
+    textHover: 'group-hover:text-indigo-600',
+    badgeBg: 'bg-indigo-50/90 text-indigo-700',
+    dateBg: 'bg-indigo-50/80 text-indigo-600',
+  }
+}
+
 function FeaturedEventCard({ event }: { event: Event }) {
   const minPrice = Math.min(...event.ticketTypes.map(t => t.price))
   const totalAvailable = event.ticketTypes.reduce((sum, t) => sum + (t.quantityTotal - t.quantitySold - t.quantityHeld), 0)
+  const theme = getCategoryTheme(event.category)
 
   return (
-    <Card className="overflow-hidden group cursor-pointer border-0 shadow-lg shadow-indigo-500/10 hover:shadow-2xl hover:shadow-indigo-500/40 hover:-translate-y-2 transition-all duration-300 rounded-3xl bg-white h-full flex flex-col">
+    <Card className={`overflow-hidden group cursor-pointer border-0 shadow-lg ${theme.shadow} hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 rounded-3xl bg-white h-full flex flex-col`}>
       <Link to={`/events/${event.id}`} className="flex flex-col h-full">
         <div className="relative h-56 overflow-hidden shrink-0">
           <div className="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
@@ -341,7 +385,7 @@ function FeaturedEventCard({ event }: { event: Event }) {
             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
           />
           <div className="absolute top-4 left-4 z-20">
-            <Badge variant="secondary" className="bg-white/95 text-slate-900 backdrop-blur shadow-sm font-bold px-3 py-1 text-xs tracking-wider">
+            <Badge variant="secondary" className={`${theme.badgeBg} backdrop-blur shadow-sm font-bold px-3 py-1 text-xs tracking-wider border-none`}>
               {event.category.toUpperCase()}
             </Badge>
           </div>
@@ -353,7 +397,7 @@ function FeaturedEventCard({ event }: { event: Event }) {
           </div>
         </div>
         <CardContent className="p-6 flex flex-col grow">
-          <h3 className="font-extrabold text-xl mb-3 line-clamp-2 group-hover:text-indigo-600 transition-colors">{event.title}</h3>
+          <h3 className={`font-extrabold text-xl mb-3 line-clamp-2 ${theme.textHover} transition-colors`}>{event.title}</h3>
           <div className="flex items-center text-sm text-slate-500 mb-6 font-medium mt-auto">
             <MapPin className="w-4 h-4 mr-1.5 text-slate-400 shrink-0" />
             <span className="truncate">{event.venue.name}, {event.venue.city}</span>
@@ -377,9 +421,10 @@ function FeaturedEventCard({ event }: { event: Event }) {
 function EventCard({ event }: { event: Event }) {
   const minPrice = Math.min(...event.ticketTypes.map(t => t.price))
   const totalAvailable = event.ticketTypes.reduce((sum, t) => sum + (t.quantityTotal - t.quantitySold - t.quantityHeld), 0)
+  const theme = getCategoryTheme(event.category)
 
   return (
-    <Card className="overflow-hidden group cursor-pointer border border-slate-100 shadow-md shadow-purple-500/10 hover:shadow-xl hover:shadow-purple-500/40 hover:-translate-y-1.5 transition-all duration-300 rounded-2xl bg-white flex flex-col h-full">
+    <Card className={`overflow-hidden group cursor-pointer border border-slate-100 shadow-md ${theme.shadow} hover:-translate-y-1.5 transition-all duration-300 rounded-2xl bg-white flex flex-col h-full`}>
       <Link to={`/events/${event.id}`} className="flex flex-col h-full">
         <div className="relative h-48 overflow-hidden shrink-0">
           <div className="absolute inset-0 bg-slate-900/10 group-hover:bg-transparent transition-colors duration-500 z-10" />
@@ -389,17 +434,17 @@ function EventCard({ event }: { event: Event }) {
             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
           />
           <div className="absolute top-3 left-3 z-20">
-            <Badge variant="secondary" className="text-[10px] uppercase font-bold tracking-wider bg-white/95 text-slate-900 backdrop-blur shadow-sm px-2.5 py-0.5">
+            <Badge variant="secondary" className={`text-[10px] uppercase font-bold tracking-wider ${theme.badgeBg} backdrop-blur shadow-sm px-2.5 py-0.5 border-none`}>
               {event.category}
             </Badge>
           </div>
         </div>
         <CardContent className="p-5 flex flex-col grow">
-          <p className="text-xs text-indigo-600 font-bold mb-3 flex items-center bg-indigo-50/50 w-fit px-2.5 py-1 rounded-md">
+          <p className={`text-xs font-bold mb-3 flex items-center ${theme.dateBg} w-fit px-2.5 py-1 rounded-md`}>
             <Calendar className="w-3 h-3 mr-1.5" />
             {formatDateShort(event.startDate)}
           </p>
-          <h3 className="font-bold text-base mb-3 line-clamp-2 group-hover:text-indigo-600 transition-colors leading-tight">{event.title}</h3>
+          <h3 className={`font-bold text-base mb-3 line-clamp-2 ${theme.textHover} transition-colors leading-tight`}>{event.title}</h3>
           <p className="text-xs text-slate-500 mb-5 flex items-center font-medium mt-auto">
             <MapPin className="w-3.5 h-3.5 mr-1.5 shrink-0 text-slate-400" />
             <span className="truncate">{event.venue.name}, {event.venue.city}</span>
