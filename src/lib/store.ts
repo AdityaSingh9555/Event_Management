@@ -128,6 +128,65 @@ const DEMO_EVENTS: Event[] = [
     createdAt: '2026-04-01',
     updatedAt: '2026-04-15',
   },
+  {
+    id: 'event-6',
+    title: 'Mumbai Indie Rocks',
+    description: 'Experience the best underground indie artists from across India. A night of raw talent and great music.',
+    bannerImage: '/assets/images/concert_india.png',
+    startDate: '2026-08-12T19:00:00',
+    endDate: '2026-08-12T23:30:00',
+    venue: DEMO_VENUES[0],
+    category: 'concert',
+    tags: ['music', 'indie', 'live', 'concert'],
+    status: 'published',
+    organizerId: 'org-2',
+    organizerName: 'Music Events Inc',
+    ticketTypes: [
+      { id: 'tt-6-1', name: 'General Admission', description: 'Entry to the concert', price: 999, currency: 'INR', quantityTotal: 1000, quantitySold: 450, quantityHeld: 20, maxPerOrder: 6, eventId: 'event-6' },
+      { id: 'tt-6-2', name: 'VIP Pit', description: 'Front row access + meet & greet', price: 2999, currency: 'INR', quantityTotal: 100, quantitySold: 80, quantityHeld: 5, maxPerOrder: 2, eventId: 'event-6' },
+    ],
+    createdAt: '2026-05-01',
+    updatedAt: '2026-05-02',
+  },
+  {
+    id: 'event-7',
+    title: 'React & Next.js Masterclass',
+    description: 'A 2-day intensive workshop for frontend developers. Learn advanced React patterns and Next.js app router directly from industry experts.',
+    bannerImage: '/assets/images/workshop_india.png',
+    startDate: '2026-07-25T10:00:00',
+    endDate: '2026-07-26T17:00:00',
+    venue: DEMO_VENUES[2],
+    category: 'workshop',
+    tags: ['tech', 'coding', 'react', 'workshop'],
+    status: 'published',
+    organizerId: 'org-3',
+    organizerName: 'Tech Conferences LLC',
+    ticketTypes: [
+      { id: 'tt-7-1', name: 'Standard Ticket', description: '2-day workshop access', price: 5999, currency: 'INR', quantityTotal: 50, quantitySold: 25, quantityHeld: 2, maxPerOrder: 2, eventId: 'event-7' },
+    ],
+    createdAt: '2026-05-01',
+    updatedAt: '2026-05-02',
+  },
+  {
+    id: 'event-8',
+    title: 'Startup Founders Mixer',
+    description: 'Exclusive networking event for startup founders, angel investors, and VCs. Open bar and hors d\'oeuvres included.',
+    bannerImage: '/assets/images/networking_india.png',
+    startDate: '2026-06-05T19:00:00',
+    endDate: '2026-06-05T22:00:00',
+    venue: DEMO_VENUES[4],
+    category: 'networking',
+    tags: ['startup', 'business', 'networking'],
+    status: 'published',
+    organizerId: 'org-1',
+    organizerName: 'Event Organizer',
+    ticketTypes: [
+      { id: 'tt-8-1', name: 'Founder Pass', description: 'Requires startup verification', price: 1499, currency: 'INR', quantityTotal: 150, quantitySold: 110, quantityHeld: 0, maxPerOrder: 1, eventId: 'event-8' },
+      { id: 'tt-8-2', name: 'Investor Pass', description: 'For angel investors and VCs', price: 4999, currency: 'INR', quantityTotal: 50, quantitySold: 30, quantityHeld: 0, maxPerOrder: 1, eventId: 'event-8' },
+    ],
+    createdAt: '2026-05-01',
+    updatedAt: '2026-05-02',
+  },
 ]
 
 const DEMO_PROMO_CODES: PromoCode[] = [
@@ -192,6 +251,15 @@ function initStorage() {
           }
         }
       });
+      
+      // Add any missing demo events
+      DEMO_EVENTS.forEach((de: Event) => {
+        if (!storedEvents.some((e: Event) => e.id === de.id)) {
+          storedEvents.push(de);
+          updated = true;
+        }
+      });
+
       if (updated) {
         localStorage.setItem(STORAGE_KEYS.events, JSON.stringify(storedEvents));
       }
