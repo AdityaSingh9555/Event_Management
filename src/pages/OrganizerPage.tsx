@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { BarChart3, Users, DollarSign, Ticket, TrendingUp, Calendar, Plus, Edit, Eye, Trash2, AlertTriangle, CheckCircle, XCircle } from 'lucide-react'
+import { BarChart3, Users, DollarSign, Ticket, TrendingUp, Calendar, Plus, Edit, Eye, Trash2, AlertTriangle, CheckCircle, XCircle, Download } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -143,8 +143,32 @@ function DashboardTab({ totalRevenue, totalTickets, totalAttendees, publishedEve
     .sort((a, b) => a.date.localeCompare(b.date))
     .slice(-14)
 
+  const handleExportCSV = () => {
+    let csvContent = "Event Name,Status,Category,Tickets Sold,Check-Ins,Revenue\\n"
+    
+    myEvents.forEach(event => {
+      const stats = analytics.getEventAnalytics(event.id)
+      const row = `"${event.title}",${event.status},${event.category},${stats.ticketsSold},${stats.checkIns},${stats.revenue}`
+      csvContent += row + "\\n"
+    })
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' })
+    const link = document.createElement('a')
+    link.href = URL.createObjectURL(blob)
+    link.download = `event_analytics_${new Date().toISOString().split('T')[0]}.csv`
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
+
   return (
     <div className="space-y-6">
+      <div className="flex justify-end">
+        <Button variant="outline" onClick={handleExportCSV}>
+          <Download className="w-4 h-4 mr-2" /> Export CSV Report
+        </Button>
+      </div>
+
       {/* Stats Cards */}
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card>

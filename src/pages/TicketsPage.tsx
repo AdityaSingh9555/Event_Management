@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { Ticket, QrCode, Download, Share2, AlertTriangle, CheckCircle, Clock, MapPin, Calendar } from 'lucide-react'
+import { Ticket, QrCode, Download, Share2, AlertTriangle, CheckCircle, Clock, MapPin, Calendar, CalendarPlus } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -68,6 +68,39 @@ export default function TicketsPage() {
     } finally {
       setIsDownloading(false)
     }
+  }
+
+  const handleAddToCalendar = () => {
+    if (!selectedTicket) return
+    const event = events.getById(selectedTicket.eventId)
+    if (!event) return
+
+    const startDate = new Date(event.startDate)
+    const endDate = new Date(event.endDate)
+    
+    // Format to YYYYMMDDTHHMMSSZ
+    const formatDate = (date: Date) => {
+      return date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z'
+    }
+
+    const icsContent = `BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+DTSTART:${formatDate(startDate)}
+DTEND:${formatDate(endDate)}
+SUMMARY:${event.title}
+DESCRIPTION:${event.description}\\n\\nTicket: ${selectedTicket.ticketTypeName}\\nCode: ${selectedTicket.ticketCode}
+LOCATION:${event.venue.name}, ${event.venue.city}
+END:VEVENT
+END:VCALENDAR`
+
+    const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' })
+    const link = document.createElement('a')
+    link.href = URL.createObjectURL(blob)
+    link.download = `event-${event.id}.ics`
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
   }
 
   useEffect(() => {
@@ -188,14 +221,19 @@ export default function TicketsPage() {
               <h1 className="text-xl font-extrabold mt-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600">EventHub</h1>
             </div>
 
-            <div className="flex gap-2">
-              <Button variant="outline" className="flex-1" onClick={() => setSelectedTicket(null)}>
-                Close
-              </Button>
-              <Button className="flex-1" onClick={handleDownloadPDF} disabled={isDownloading}>
+            <div className="flex flex-col gap-2">
+              <Button className="w-full" onClick={handleDownloadPDF} disabled={isDownloading}>
                 <Download className="w-4 h-4 mr-2" /> 
-                {isDownloading ? 'Saving...' : 'Save PDF'}
+                {isDownloading ? 'Saving...' : 'Save PDF Ticket'}
               </Button>
+              <div className="flex gap-2">
+                <Button variant="outline" className="flex-1" onClick={handleAddToCalendar}>
+                  <CalendarPlus className="w-4 h-4 mr-2" /> Add to Calendar
+                </Button>
+                <Button variant="outline" className="flex-1" onClick={() => setSelectedTicket(null)}>
+                  Close
+                </Button>
+              </div>
             </div>
           </div>
         </div>

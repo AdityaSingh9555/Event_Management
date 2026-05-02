@@ -183,6 +183,19 @@ export default function EventDetailPage() {
                     </div>
                   </div>
                 </div>
+                
+                {/* Interactive Map */}
+                <div className="mt-8 rounded-2xl overflow-hidden shadow-inner border border-slate-100 bg-slate-50">
+                  <iframe 
+                    width="100%" 
+                    height="350" 
+                    frameBorder="0" 
+                    style={{ border: 0 }} 
+                    src={`https://maps.google.com/maps?q=${encodeURIComponent(event.venue.name + ' ' + event.venue.city)}&t=&z=13&ie=UTF8&iwloc=&output=embed`} 
+                    allowFullScreen
+                    title={`${event.venue.name} Location`}
+                  />
+                </div>
               </CardContent>
             </Card>
           </section>
