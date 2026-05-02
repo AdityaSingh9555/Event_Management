@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { events } from '@/lib/store'
-import { formatDateShort, formatCurrency } from '@/lib/utils'
+import { formatDateShort, formatCurrency, getCategoryTheme } from '@/lib/utils'
 import type { Event, EventCategory } from '@/types'
 
 const CATEGORIES: { value: EventCategory; label: string; icon: string }[] = [
@@ -324,51 +324,6 @@ export default function HomePage() {
       </section>
     </div>
   )
-}
-
-const getCategoryTheme = (category: string) => {
-  const cat = category.toLowerCase();
-  if (['music', 'concert', 'festival'].includes(cat)) {
-    return {
-      shadow: 'shadow-rose-500/10 hover:shadow-rose-500/40',
-      textHover: 'group-hover:text-rose-600',
-      badgeBg: 'bg-rose-50/90 text-rose-700',
-      dateBg: 'bg-rose-50/80 text-rose-600',
-    }
-  }
-  if (['tech', 'workshop', 'hackathon'].includes(cat)) {
-    return {
-      shadow: 'shadow-cyan-500/10 hover:shadow-cyan-500/40',
-      textHover: 'group-hover:text-cyan-600',
-      badgeBg: 'bg-cyan-50/90 text-cyan-700',
-      dateBg: 'bg-cyan-50/80 text-cyan-600',
-    }
-  }
-  if (['business', 'networking', 'conference'].includes(cat)) {
-    return {
-      shadow: 'shadow-amber-500/10 hover:shadow-amber-500/40',
-      textHover: 'group-hover:text-amber-600',
-      badgeBg: 'bg-amber-50/90 text-amber-700',
-      dateBg: 'bg-amber-50/80 text-amber-600',
-    }
-  }
-  if (['sports', 'fitness', 'health'].includes(cat)) {
-    return {
-      shadow: 'shadow-emerald-500/10 hover:shadow-emerald-500/40',
-      textHover: 'group-hover:text-emerald-600',
-      badgeBg: 'bg-emerald-50/90 text-emerald-700',
-      dateBg: 'bg-emerald-50/80 text-emerald-600',
-    }
-  }
-  // Default / other categories (Art, Film, etc.)
-  return {
-    shadow: 'shadow-indigo-500/10 hover:shadow-indigo-500/40',
-    textHover: 'group-hover:text-indigo-600',
-    badgeBg: 'bg-indigo-50/90 text-indigo-700',
-    dateBg: 'bg-indigo-50/80 text-indigo-600',
-  }
-}
-
 function FeaturedEventCard({ event }: { event: Event }) {
   const minPrice = Math.min(...event.ticketTypes.map(t => t.price))
   const totalAvailable = event.ticketTypes.reduce((sum, t) => sum + (t.quantityTotal - t.quantitySold - t.quantityHeld), 0)
