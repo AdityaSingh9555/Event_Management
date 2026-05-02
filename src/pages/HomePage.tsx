@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Search, Calendar, MapPin, Ticket, Filter, ChevronRight, Star, Users, Zap } from 'lucide-react'
+import { Search, Calendar, MapPin, Ticket, Filter, ChevronRight, Star, Users, Zap, Quote, MessageSquare } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -235,86 +235,91 @@ export default function HomePage() {
       </section>
 
       {/* Customer Feedback & Rating System */}
-      <section className="py-16 px-4 max-w-6xl mx-auto border-t border-slate-100">
-        <div className="text-center mb-12 flex flex-col items-center">
-          <h2 className="text-3xl font-bold mb-4">What Our Customers Say</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
-            Don't just take our word for it. Here's what event-goers and organizers have to say about their experience with EventHub.
-          </p>
-          {!isSubmittingFeedback ? (
-            <Button onClick={() => setIsSubmittingFeedback(true)}>
-              Leave a Review
-            </Button>
-          ) : (
-            <Card className="w-full max-w-md mx-auto text-left mb-8 shadow-md">
-              <form onSubmit={handleFeedbackSubmit}>
-                <CardHeader>
-                  <CardTitle>Write a Review</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div>
-                    <label className="text-sm font-medium">Rating</label>
-                    <div className="flex gap-1 mt-1">
-                      {[1, 2, 3, 4, 5].map((star) => (
-                        <Star 
-                          key={star} 
-                          className={`w-6 h-6 cursor-pointer ${star <= newRating ? 'fill-yellow-500 text-yellow-500' : 'text-slate-300'}`} 
-                          onClick={() => setNewRating(star)}
-                        />
-                      ))}
+      <section className="py-24 px-4 bg-slate-50/50">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16 flex flex-col items-center">
+            <Badge variant="secondary" className="mb-4 text-sm bg-indigo-500/10 text-indigo-600 hover:bg-indigo-500/20 border-none">
+              <MessageSquare className="w-4 h-4 mr-2" /> Real Reviews
+            </Badge>
+            <h2 className="text-4xl font-extrabold mb-4 tracking-tight">What Our Customers Say</h2>
+            <p className="text-slate-500 max-w-2xl mx-auto mb-8 text-lg">
+              Don't just take our word for it. Here's what event-goers and organizers have to say about their experience with EventHub.
+            </p>
+            {!isSubmittingFeedback ? (
+              <Button size="lg" className="rounded-full px-8 bg-slate-900 text-white hover:bg-slate-800 shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all" onClick={() => setIsSubmittingFeedback(true)}>
+                <Star className="w-4 h-4 mr-2 fill-yellow-500 text-yellow-500" /> Leave a Review
+              </Button>
+            ) : (
+              <Card className="w-full max-w-md mx-auto text-left mb-8 border-none shadow-2xl rounded-3xl overflow-hidden bg-white/80 backdrop-blur-xl animate-in fade-in zoom-in-95 duration-300">
+                <div className="bg-gradient-to-r from-violet-600 to-indigo-600 p-6 text-white text-center">
+                  <h3 className="text-2xl font-bold">Write a Review</h3>
+                  <p className="text-indigo-100 text-sm mt-1">Share your experience with others</p>
+                </div>
+                <form onSubmit={handleFeedbackSubmit} className="p-6">
+                  <div className="space-y-5">
+                    <div>
+                      <label className="text-sm font-semibold text-slate-700">How was it?</label>
+                      <div className="flex gap-2 mt-2">
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <Star 
+                            key={star} 
+                            className={`w-8 h-8 cursor-pointer transition-all hover:scale-110 ${star <= newRating ? 'fill-yellow-400 text-yellow-400 drop-shadow-md' : 'text-slate-200 hover:text-yellow-200'}`} 
+                            onClick={() => setNewRating(star)}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                    <div>
+                      <label className="text-sm font-semibold text-slate-700">Your Name</label>
+                      <Input 
+                        value={newName} 
+                        onChange={(e) => setNewName(e.target.value)} 
+                        placeholder="e.g. John Doe" 
+                        required 
+                        className="mt-2 bg-slate-50 border-slate-200 focus-visible:ring-indigo-500"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-sm font-semibold text-slate-700">Review</label>
+                      <textarea
+                        value={newContent} 
+                        onChange={(e) => setNewContent(e.target.value)} 
+                        placeholder="Tell us what you loved..." 
+                        required 
+                        className="w-full min-h-[100px] mt-2 p-3 text-sm rounded-md bg-slate-50 border border-slate-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:border-transparent resize-none"
+                      />
+                    </div>
+                    <div className="flex gap-3 justify-end pt-4 border-t border-slate-100">
+                      <Button type="button" variant="outline" className="rounded-full" onClick={() => setIsSubmittingFeedback(false)}>Cancel</Button>
+                      <Button type="submit" className="rounded-full bg-indigo-600 hover:bg-indigo-700">Post Review</Button>
                     </div>
                   </div>
-                  <div>
-                    <label className="text-sm font-medium">Your Name</label>
-                    <Input 
-                      value={newName} 
-                      onChange={(e) => setNewName(e.target.value)} 
-                      placeholder="John Doe" 
-                      required 
-                      className="mt-1"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium">Review</label>
-                    <Input 
-                      value={newContent} 
-                      onChange={(e) => setNewContent(e.target.value)} 
-                      placeholder="Share your experience..." 
-                      required 
-                      className="mt-1"
-                    />
-                  </div>
-                  <div className="flex gap-2 justify-end pt-2">
-                    <Button type="button" variant="ghost" onClick={() => setIsSubmittingFeedback(false)}>Cancel</Button>
-                    <Button type="submit">Submit Review</Button>
-                  </div>
-                </CardContent>
-              </form>
-            </Card>
-          )}
-        </div>
-        <div className="grid md:grid-cols-3 gap-6">
-          {feedbacks.slice(0, 3).map((feedback, idx) => (
-            <Card key={idx} className="bg-slate-50 border-none shadow-sm hover:shadow-md transition-shadow">
-              <CardContent className="p-6 flex flex-col h-full">
-                <div className="flex gap-1 mb-4 text-yellow-500">
+                </form>
+              </Card>
+            )}
+          </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            {feedbacks.slice(0, 3).map((feedback, idx) => (
+              <div key={idx} className="relative bg-white rounded-3xl p-8 border border-slate-100 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                <Quote className="absolute top-6 right-6 w-12 h-12 text-indigo-500/10 rotate-180" />
+                <div className="flex gap-1 mb-6 text-yellow-400">
                   {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} className={`w-4 h-4 ${i < feedback.rating ? 'fill-current' : 'text-slate-300'}`} />
+                    <Star key={i} className={`w-5 h-5 drop-shadow-sm ${i < feedback.rating ? 'fill-current' : 'text-slate-200'}`} />
                   ))}
                 </div>
-                <p className="text-slate-700 italic mb-6 grow">"{feedback.content}"</p>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center font-bold text-indigo-700">
+                <p className="text-slate-600 font-medium leading-relaxed mb-8 grow relative z-10">"{feedback.content}"</p>
+                <div className="flex items-center gap-4 mt-auto">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center font-bold text-white shadow-md">
                     {feedback.name.charAt(0)}
                   </div>
                   <div>
-                    <h4 className="font-bold text-sm">{feedback.name}</h4>
-                    <p className="text-xs text-muted-foreground">{feedback.role}</p>
+                    <h4 className="font-bold text-slate-900">{feedback.name}</h4>
+                    <p className="text-sm text-slate-500 font-medium">{feedback.role}</p>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
-          ))}
+              </div>
+            ))}
+          </div>
         </div>
       </section>
     </div>
