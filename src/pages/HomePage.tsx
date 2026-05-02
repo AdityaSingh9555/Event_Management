@@ -324,6 +324,8 @@ export default function HomePage() {
       </section>
     </div>
   )
+}
+
 function FeaturedEventCard({ event }: { event: Event }) {
   const minPrice = Math.min(...event.ticketTypes.map(t => t.price))
   const totalAvailable = event.ticketTypes.reduce((sum, t) => sum + (t.quantityTotal - t.quantitySold - t.quantityHeld), 0)
