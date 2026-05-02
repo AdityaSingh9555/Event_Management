@@ -285,7 +285,7 @@ export default function HomePage() {
 
       {/* Refer and Earn Section */}
       <section className="py-12 px-4 max-w-6xl mx-auto">
-        <div className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-indigo-900 via-purple-900 to-slate-900 text-white shadow-[0_20px_50px_-12px_rgba(168,85,247,0.5)] border border-white/10 transform transition-all hover:scale-[1.01] hover:shadow-[0_30px_60px_-12px_rgba(168,85,247,0.6)] duration-500">
+        <div className={`relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-indigo-900 via-purple-900 to-slate-900 text-white border border-white/10 transform transition-all duration-500 ${isCopied ? 'scale-[1.03] shadow-[0_40px_80px_-12px_rgba(16,185,129,0.6)] ring-2 ring-emerald-500' : 'shadow-[0_20px_50px_-12px_rgba(168,85,247,0.5)] hover:scale-[1.01] hover:shadow-[0_30px_60px_-12px_rgba(168,85,247,0.6)]'}`}>
           {/* Decorative elements */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-pink-500/20 rounded-full blur-[80px]" />
           <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-500/20 rounded-full blur-[80px]" />
