@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventHub Project Report</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --secondary: #10b981;
+            --accent: #8b5cf6;
+            --bg: #f8fafc;
+            --text: #1e293b;
+            --card: #ffffff;
+        }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 80px 40px;
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            color: white;
+            border-radius: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        header h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin: 0;
+            background: linear-gradient(to right, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-top: 20px;
+        }
+        section {
+            margin-bottom: 60px;
+            background: var(--card);
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        }
+        h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 30px;
+        }
+        .grid {
+            display: grid;
+            grid-template-cols: 1fr 1fr;
+            gap: 20px;
+        }
+        .card-mini {
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+        }
+        .card-mini h4 {
+            margin: 0 0 10px 0;
+            color: var(--primary);
+        }
+        img {
+            width: 100%;
+            border-radius: 20px;
+            margin: 20px 0;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            text-align: left;
+            padding: 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        th {
+            background-color: #f8fafc;
+            color: var(--primary);
+        }
+        .footer {
+            text-align: center;
+            padding: 40px;
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+        @media print {
+            body { background: white; }
+            .container { max-width: 100%; padding: 0; }
+            header, section { box-shadow: none; border: 1px solid #eee; border-radius: 0; }
+            section { page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>EventHub</h1>
+            <p>Modern Event Management & Ticketing Solution</p>
+            <div style="margin-top: 40px; font-weight: 600;">
+                <p>Course: Software Development Project</p>
+                <p>Presented by: [Aditya Singh]</p>
+            </div>
+        </header>
+
+        <section>
+            <h2>🚀 Project Overview</h2>
+            <p>EventHub is a premium ticketing platform designed to bridge the gap between event organizers and attendees in India. It focuses on localization, high-end aesthetics, and a friction-less user experience.</p>
+            <div class="grid">
+                <div class="card-mini">
+                    <h4>The Problem</h4>
+                    <p>Cluttered interfaces and lack of local context in existing platforms.</p>
+                </div>
+                <div class="card-mini">
+                    <h4>The Solution</h4>
+                    <p>A "Premium-First" design with INR support and interactive venue maps.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>✨ Core Features</h2>
+            <div class="grid">
+                <div>
+                    <h3>For Attendees</h3>
+                    <ul>
+                        <li>Category-based discovery</li>
+                        <li>Smart Cart with Promo Codes</li>
+                        <li>Secure E-Tickets with QR Codes</li>
+                        <li>Google Maps Integration</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>For Organizers</h3>
+                    <ul>
+                        <li>Real-time Sales Analytics</li>
+                        <li>Event Management Dashboard</li>
+                        <li>Secure Check-in Scanner</li>
+                        <li>Data Export & Reporting</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>🛠 Technology Stack</h2>
+            <table>
+                <tr><th>Layer</th><th>Technology</th></tr>
+                <tr><td>Frontend</td><td>React 18, TypeScript</td></tr>
+                <tr><td>Build Tool</td><td>Vite</td></tr>
+                <tr><td>Styling</td><td>Tailwind CSS & shadcn/ui</td></tr>
+                <tr><td>State</td><td>Zustand Store</td></tr>
+                <tr><td>Charts</td><td>Recharts</td></tr>
+                <tr><td>Icons</td><td>Lucide React</td></tr>
+            </table>
+        </section>
+
+        <section>
+            <h2>🎨 Visual Design</h2>
+            <p>The platform uses a "Glassmorphic" design system with smooth transitions and a mobile-first approach.</p>
+            <img src="C:\Users\adity\.gemini\antigravity\brain\759eca43-5234-4f0f-ae9f-d0bae7e76bb7\eventhub_landing_page_1777789635060.png" alt="Landing Page">
+            <p style="text-align: center; font-size: 0.9rem; color: #64748b;">Figure 1: Premium Landing Page Interface</p>
+            
+            <img src="C:\Users\adity\.gemini\antigravity\brain\759eca43-5234-4f0f-ae9f-d0bae7e76bb7\eventhub_dashboard_analytics_1777789651161.png" alt="Dashboard">
+            <p style="text-align: center; font-size: 0.9rem; color: #64748b;">Figure 2: Real-time Analytics Dashboard</p>
+        </section>
+
+        <section>
+            <h2>🔮 Future Roadmap</h2>
+            <ul>
+                <li>WhatsApp & Instagram Integration</li>
+                <li>Native Payment Gateway (Razorpay/UPI)</li>
+                <li>AI-Powered Event Recommendations</li>
+                <li>Native Mobile Applications</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>✅ Conclusion</h2>
+            <p>EventHub sets a new standard for event management applications by combining robust technical features with a world-class user interface. It is ready for production deployment and scalable for future needs.</p>
+        </section>
+
+        <div class="footer">
+            &copy; 2026 EventHub Project. All rights reserved.
+        </div>
+    </div>
+</body>
+</html>

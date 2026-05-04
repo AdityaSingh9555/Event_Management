@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventHub Project Report - Presentation Edition</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        :root {
+            --primary: #6366f1;
+            --secondary: #a855f7;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --bg-light: #f9fafb;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            background: white;
+            padding: 60px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            border-radius: 12px;
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 30px;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 32px;
+            color: var(--primary);
+            margin-bottom: 10px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h2 {
+            font-size: 22px;
+            color: var(--text-dark);
+            border-left: 4px solid var(--primary);
+            padding-left: 15px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            font-size: 18px;
+            color: var(--secondary);
+            margin-top: 25px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: var(--text-light);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background: #f3f4f6;
+            padding: 20px;
+            border-radius: 8px;
+            border-top: 3px solid var(--primary);
+        }
+
+        .tech-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .tech-table th, .tech-table td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .tech-table th {
+            background-color: #f8fafc;
+            color: var(--primary);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            background: #e0e7ff;
+            color: #4338ca;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+
+        .footer {
+            margin-top: 60px;
+            text-align: center;
+            font-size: 12px;
+            color: #9ca3af;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+
+        @media print {
+            body { background: white; }
+            .container { box-shadow: none; margin: 0; padding: 20px; width: 100%; }
+            .no-print { display: none; }
+        }
+        
+        .print-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 12px 24px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <button class="print-btn no-print" onclick="window.print()">Save as PDF / Print</button>
+
+    <div class="container">
+        <header>
+            <h1>EventHub Project Report</h1>
+            <p>Advanced Event Management & Ticketing Solution</p>
+            <div style="margin-top: 10px;">
+                <span class="badge">React 18</span>
+                <span class="badge">TypeScript</span>
+                <span class="badge">Tailwind CSS</span>
+                <span class="badge">Vite</span>
+            </div>
+        </header>
+
+        <section>
+            <h2>1. Project Overview</h2>
+            <p>EventHub is a premium, localized event ticketing platform designed for the modern Indian market. It bridges the gap between organizers and attendees with a focus on visual excellence, performance, and seamless user experience.</p>
+        </section>
+
+        <section>
+            <h2>2. Key Features</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>For Attendees</h3>
+                    <ul>
+                        <li><b>QR Ticketing:</b> Automated secure entry passes.</li>
+                        <li><b>Calendar Sync:</b> ICS export for Google/Apple calendars.</li>
+                        <li><b>Venue Maps:</b> Integrated interactive maps.</li>
+                        <li><b>Smart Cart:</b> Promo code & discount system.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>For Organizers</h3>
+                    <ul>
+                        <li><b>Sales Analytics:</b> Interactive revenue & growth charts.</li>
+                        <li><b>CSV Export:</b> Full data reporting for bookkeeping.</li>
+                        <li><b>QR Scanner:</b> Built-in entry validation system.</li>
+                        <li><b>Event Control:</b> Flexible pricing & capacity management.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. Technology Stack</h2>
+            <table class="tech-table">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Technology Used</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>Frontend</b></td>
+                        <td>React 18, TypeScript, Tailwind CSS</td>
+                    </tr>
+                    <tr>
+                        <td><b>Build & Dev</b></td>
+                        <td>Vite, ESLint, PostCSS</td>
+                    </tr>
+                    <tr>
+                        <td><b>Libraries</b></td>
+                        <td>Lucide React, Recharts, Radix UI</td>
+                    </tr>
+                    <tr>
+                        <td><b>Core Logic</b></td>
+                        <td>jsPDF, html2canvas, html5-qrcode</td>
+                    </tr>
+                    <tr>
+                        <td><b>Deployment</b></td>
+                        <td>Vercel (Production Live)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>4. Languages Used</h2>
+            <table class="tech-table">
+                <thead>
+                    <tr>
+                        <th>Language</th>
+                        <th>Purpose in Project</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>TypeScript (.tsx)</b></td>
+                        <td>Core logic, UI components, and Type safety.</td>
+                    </tr>
+                    <tr>
+                        <td><b>HTML5</b></td>
+                        <td>Application structure and base templates.</td>
+                    </tr>
+                    <tr>
+                        <td><b>CSS3 / Tailwind</b></td>
+                        <td>Advanced styling, animations, and responsive layout.</td>
+                    </tr>
+                    <tr>
+                        <td><b>JavaScript</b></td>
+                        <td>Configuration files (Vite, Tailwind, PostCSS).</td>
+                    </tr>
+                    <tr>
+                        <td><b>JSON / TOML</b></td>
+                        <td>Metadata, dependencies, and deployment configs.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>5. Localization & Design</h2>
+            <p>The project implements a <b>"Premium-First"</b> design language featuring:</p>
+            <ul>
+                <li><b>Glassmorphic UI:</b> Modern frosted-glass effects.</li>
+                <li><b>Indian Context:</b> Native support for INR (₹) and Indian venues.</li>
+                <li><b>Responsive Design:</b> Fully optimized for Mobile, Tablet, and Desktop.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>5. Future Roadmap</h2>
+            <p>Planned enhancements include social sharing integrations (WhatsApp/Instagram), real-time payment gateway integration (Razorpay), and a native mobile app using React Native.</p>
+        </section>
+
+        <div class="footer">
+            <p>Generated by EventHub System &copy; 2026 | Professional Engineering Portfolio Project</p>
+        </div>
+    </div>
+</body>
+</html>
