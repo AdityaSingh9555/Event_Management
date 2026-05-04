@@ -242,6 +242,19 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
       {/* Simulated Email Notification System */}
       <EmailNotification />
+
+      {/* Premium Corner Glow Overlay (Direct Injection for Vercel) */}
+      <div 
+        className="fixed inset-0 pointer-events-none z-[9999] select-none" 
+        style={{
+          backgroundImage: `
+            radial-gradient(circle at 0% 0%, rgba(99, 102, 241, 0.35) 0%, transparent 40%),
+            radial-gradient(circle at 100% 0%, rgba(168, 85, 247, 0.35) 0%, transparent 40%),
+            radial-gradient(circle at 100% 100%, rgba(99, 102, 241, 0.35) 0%, transparent 40%),
+            radial-gradient(circle at 0% 100%, rgba(168, 85, 247, 0.35) 0%, transparent 40%)
+          `
+        }} 
+      />
     </div>
   )
 }
