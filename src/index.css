@@ -59,13 +59,13 @@
     min-h-screen;
   }
 
-  /* Premium Corner Shadow (Vignette) */
+  /* Premium Corner Shadow (Vignette) - Updated for better visibility */
   body::after {
     content: "";
     position: fixed;
     inset: 0;
-    box-shadow: inset 0 0 120px rgba(99, 102, 241, 0.07), 
-                inset 0 0 200px rgba(168, 85, 247, 0.04);
+    box-shadow: inset 0 0 150px rgba(99, 102, 241, 0.15), 
+                inset 0 0 250px rgba(168, 85, 247, 0.08);
     pointer-events: none;
     z-index: 9999;
   }
