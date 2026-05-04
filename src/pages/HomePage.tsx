@@ -416,7 +416,7 @@ export default function HomePage() {
                         placeholder="Tell us what you loved..." 
                         required 
                         className="w-full min-h-[100px] mt-2 p-3 text-sm rounded-md bg-slate-50 border border-slate-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:border-transparent resize-none"
-                      />
+                      ></textarea>
                     </div>
                     <div className="flex gap-3 justify-end pt-4 border-t border-slate-100">
                       <Button type="button" variant="outline" className="rounded-full" onClick={() => setIsSubmittingFeedback(false)}>Cancel</Button>
