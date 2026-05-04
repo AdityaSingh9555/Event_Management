@@ -247,14 +247,17 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <div 
         className="fixed inset-0 pointer-events-none z-[9999] select-none" 
         style={{
-          backgroundImage: `
-            radial-gradient(circle at 0% 0%, rgba(99, 102, 241, 0.5) 0%, transparent 45%),
-            radial-gradient(circle at 100% 0%, rgba(168, 85, 247, 0.5) 0%, transparent 45%),
-            radial-gradient(circle at 100% 100%, rgba(99, 102, 241, 0.5) 0%, transparent 45%),
-            radial-gradient(circle at 0% 100%, rgba(168, 85, 247, 0.5) 0%, transparent 45%)
-          `
+          boxShadow: 'inset 0 0 15px rgba(0, 0, 0, 0.5), inset 0 0 2px rgba(99, 102, 241, 0.8)',
+          border: '1px solid rgba(99, 102, 241, 0.2)',
+          animation: 'borderPulse 4s infinite alternate'
         }} 
       />
+      <style>{`
+        @keyframes borderPulse {
+          0% { box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5), inset 0 0 2px rgba(99, 102, 241, 0.5); }
+          100% { box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.7), inset 0 0 5px rgba(168, 85, 247, 0.8); }
+        }
+      `}</style>
     </div>
   )
 }
