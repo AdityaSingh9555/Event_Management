@@ -248,10 +248,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         className="fixed inset-0 pointer-events-none z-[9999] select-none" 
         style={{
           backgroundImage: `
-            radial-gradient(circle at 0% 0%, rgba(99, 102, 241, 0.9) 0%, transparent 60%),
-            radial-gradient(circle at 100% 0%, rgba(168, 85, 247, 0.9) 0%, transparent 60%),
-            radial-gradient(circle at 100% 100%, rgba(99, 102, 241, 0.9) 0%, transparent 60%),
-            radial-gradient(circle at 0% 100%, rgba(168, 85, 247, 0.9) 0%, transparent 60%)
+            radial-gradient(circle at 0% 0%, rgba(99, 102, 241, 0.5) 0%, transparent 45%),
+            radial-gradient(circle at 100% 0%, rgba(168, 85, 247, 0.5) 0%, transparent 45%),
+            radial-gradient(circle at 100% 100%, rgba(99, 102, 241, 0.5) 0%, transparent 45%),
+            radial-gradient(circle at 0% 100%, rgba(168, 85, 247, 0.5) 0%, transparent 45%)
           `
         }} 
       />
