@@ -49,7 +49,7 @@ export default function Navbar() {
             <Sparkles className="w-6 h-6 text-white relative z-10 animate-pulse" />
           </div>
           <span className="font-extrabold text-2xl tracking-tight hidden sm:block bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600 group-hover:from-rose-500 group-hover:to-purple-600 transition-all duration-500">
-            EventHub
+            SPAS
           </span>
         </Link>
 

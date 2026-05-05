@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Report - Aditya Singh</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.5;
+            color: #000;
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 50px;
+            background-color: #fff;
+        }
+        .report-container {
+            border: 1px solid #000;
+            padding: 40px;
+        }
+        .center-text {
+            text-align: center;
+        }
+        .underline {
+            text-decoration: underline;
+        }
+        .bold {
+            font-weight: bold;
+        }
+        h1 {
+            font-size: 26px;
+            margin-bottom: 5px;
+        }
+        h2 {
+            font-size: 22px;
+            margin-top: 5px;
+        }
+        h3 {
+            font-size: 20px;
+            margin-top: 40px;
+            border-bottom: 2px solid #000;
+            padding-bottom: 5px;
+        }
+        .project-meta {
+            margin: 40px 0;
+            font-size: 18px;
+        }
+        .project-meta p {
+            margin: 10px 0;
+        }
+        .project-meta b {
+            display: inline-block;
+            width: 200px;
+        }
+        .section {
+            margin-top: 30px;
+        }
+        .section h4 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            text-decoration: underline;
+        }
+        ul {
+            padding-left: 40px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #000;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        .btn {
+            padding: 10px 20px;
+            cursor: pointer;
+            border: 1px solid #000;
+            background: #fff;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+        }
+        .btn-blue {
+            background: #2563eb;
+            color: #fff;
+            border: none;
+        }
+        @media print {
+            .no-print { display: none; }
+            body { padding: 0; margin: 0; }
+            .report-container { border: none; }
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+        function downloadPDF() {
+            const element = document.querySelector('.report-container');
+            const opt = {
+                margin:       10,
+                filename:     'Academic_Project_Report_Aditya_Singh.pdf',
+                image:        { type: 'jpeg', quality: 1 },
+                html2canvas:  { scale: 2 },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            html2pdf().set(opt).from(element).save();
+        }
+    </script>
+</head>
+<body>
+    <div class="controls no-print">
+        <button class="btn" onclick="window.print()">Print Preview</button>
+        <button class="btn btn-blue" onclick="downloadPDF()">Download PDF</button>
+    </div>
+
+    <div class="report-container">
+        <div class="center-text">
+            <h1 class="underline">PROJECT REPORT</h1>
+            <h2 class="underline">BCA VI SEMESTER (2025-26)</h2>
+        </div>
+
+        <div class="project-meta">
+            <p><b>Project Title:</b> EventHub - Advanced Event Management & Ticketing System</p>
+            <p><b>Names of Students:</b> Aditya Singh, Aditya Verma, Shreyansh Tiwari</p>
+            <p><b>Roll Number:</b> 2301031601007 (Lead)</p>
+            <p><b>Domain:</b> Web Development / E-commerce</p>
+            <p><b>Project Guide:</b> __________________________</p>
+        </div>
+
+        <div class="section">
+            <h3 class="underline">1. Project Overview</h3>
+            <p>
+                EventHub is a comprehensive, full-stack ticketing solution designed specifically for the Indian market. It serves as a bridge between event organizers and attendees, providing a seamless experience for discovering, booking, and managing events. The platform is built with a focus on visual excellence, high performance, and localization.
+            </p>
+            <p>
+                The project addresses the clutter and complexity found in existing ticketing platforms by providing a premium, user-friendly interface that includes local context such as Indian venues and currency (INR).
+            </p>
+        </div>
+
+        <div class="section">
+            <h3 class="underline">2. Key Features</h3>
+            <h4>2.1 For Attendees</h4>
+            <ul>
+                <li><b>Immersive Discovery:</b> Category-based browsing with dynamic theming.</li>
+                <li><b>Smart Cart & Checkout:</b> Real-time calculations with automated discount application.</li>
+                <li><b>Secure E-Tickets:</b> Automated generation of tickets with secure QR codes for entry validation.</li>
+                <li><b>Venue Integration:</b> Interactive Google Maps integration for every event location.</li>
+            </ul>
+
+            <h4>2.2 For Organizers</h4>
+            <ul>
+                <li><b>Robust Dashboard:</b> Real-time sales analytics and revenue tracking using interactive charts.</li>
+                <li><b>Event Creation Engine:</b> Full control over ticket types, capacities, and pricing.</li>
+                <li><b>Check-in System:</b> Integrated QR scanner for door management and fraud prevention.</li>
+                <li><b>Data Reporting:</b> Exportable insights for sales and attendance metrics.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h3 class="underline">3. Technology Stack</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Technology Used</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Frontend</td>
+                        <td>React 18 (TypeScript)</td>
+                    </tr>
+                    <tr>
+                        <td>Styling</td>
+                        <td>Tailwind CSS & shadcn/ui</td>
+                    </tr>
+                    <tr>
+                        <td>Build Tool</td>
+                        <td>Vite</td>
+                    </tr>
+                    <tr>
+                        <td>Data Management</td>
+                        <td>Zustand / Local Storage API</td>
+                    </tr>
+                    <tr>
+                        <td>Visuals/Charts</td>
+                        <td>Recharts & Lucide Icons</td>
+                    </tr>
+                    <tr>
+                        <td>Ticketing</td>
+                        <td>QRCode.react & jsPDF</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h3 class="underline">4. System Architecture</h3>
+            <p>The application follows a modular architecture designed for scalability:</p>
+            <ul>
+                <li><b>Presentation Layer:</b> High-fidelity React components styled with Tailwind CSS.</li>
+                <li><b>Business Logic:</b> Custom hooks for cart management, ticket validation, and pricing algorithms.</li>
+                <li><b>Data Layer:</b> A centralized store that simulates backend persistence and real-time state updates.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h3 class="underline">5. Conclusion</h3>
+            <p>
+                EventHub successfully demonstrates the integration of modern web technologies to solve real-world problems in the event management sector. By prioritizing user experience and localized features, the platform sets a high standard for college-level project implementations.
+            </p>
+        </div>
+
+        <div style="margin-top: 100px; display: flex; justify-content: space-between;" class="bold">
+            <div>
+                Date: ____________
+            </div>
+            <div style="text-align: right;">
+                (Signature of Students)<br>
+                1. Aditya Singh<br>
+                2. Aditya Verma<br>
+                3. Shreyansh Tiwari
+            </div>
+        </div>
+    </div>
+</body>
+</html>

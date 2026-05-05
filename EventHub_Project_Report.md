@@ -1,8 +1,10 @@
 # EventHub: A Modern Event Management & Ticketing Platform
 
-**Course**: Web Development / Software Engineering  
-**Project Name**: EventHub  
-**Developer**: [Your Name]  
+**Course**: BCA VI Sem - Web Development  
+**Project Name**: EventHub - Advanced Event Management & Ticketing System  
+**Student Name**: Aditya Singh  
+**Roll Number**: 2301031601007
+**Project Guide**: Mr. Sanjeev Kumar
 **Date**: May 2026
 
 ---

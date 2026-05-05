@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ShoppingCart, Trash2, Minus, Plus, ArrowLeft, Tag, AlertTriangle, CreditCard, Loader2, CheckCircle2, QrCode } from 'lucide-react'
+import { ShoppingCart, Trash2, Minus, Plus, ArrowLeft, Tag, AlertTriangle, CreditCard, Loader2, CheckCircle2, QrCode, Mail, MailCheck, MailX } from 'lucide-react'
 import { QRCodeCanvas } from 'qrcode.react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -10,6 +10,8 @@ import { Badge } from '@/components/ui/badge'
 import { useCart } from '@/hooks/useStore'
 import { events, promoCodes, orders, tickets, auth, cart as cartStore } from '@/lib/store'
 import { formatCurrency, generateId } from '@/lib/utils'
+import { sendTicketConfirmationEmail } from '@/lib/emailService'
+import { formatDate } from '@/lib/utils'
 
 export default function CartPage() {
   const navigate = useNavigate()
@@ -19,6 +21,7 @@ export default function CartPage() {
   const [appliedPromo, setAppliedPromo] = useState<{ code: string; discount: number; type: 'percentage' | 'fixed' } | null>(null)
   const [isCheckingOut, setIsCheckingOut] = useState(false)
   const [paymentStep, setPaymentStep] = useState<'idle' | 'qr' | 'processing' | 'verifying' | 'success'>('idle')
+  const [emailStatus, setEmailStatus] = useState<'idle' | 'sending' | 'sent' | 'failed'>('idle')
   const currentUser = auth.getCurrentUser()
 
   const cartItems = items.map(item => {
@@ -83,6 +86,9 @@ export default function CartPage() {
       eventGroups[item.eventId].push(item)
     })
 
+    // Collect created order info for email
+    const createdOrders: Array<{ orderId: string; event: ReturnType<typeof events.getById>; orderItems: any[]; orderTotal: number; firstTicketCode: string }> = []
+
     // Create orders and tickets
     Object.entries(eventGroups).forEach(([eventId, groupItems]) => {
       const event = events.getById(eventId)
@@ -110,10 +116,12 @@ export default function CartPage() {
         discountAmount: discount,
       })
 
+      let firstTicketCode = ''
+
       // Create tickets
       orderItems.forEach(item => {
         for (let i = 0; i < item.quantity; i++) {
-          tickets.create({
+          const ticket = tickets.create({
             orderId: order.id,
             eventId,
             eventTitle: event.title,
@@ -126,8 +134,11 @@ export default function CartPage() {
             currency: 'USD',
             status: 'valid',
           })
+          if (!firstTicketCode && ticket?.ticketCode) firstTicketCode = ticket.ticketCode
         }
       })
+
+      createdOrders.push({ orderId: order.id, event, orderItems, orderTotal, firstTicketCode })
 
       // Update inventory
       groupItems.forEach(item => {
@@ -147,10 +158,40 @@ export default function CartPage() {
       promoCodes.use(appliedPromo.code)
     }
 
+    // ── Send Confirmation Email ────────────────────────────────────────────────
+    if (createdOrders.length > 0) {
+      setEmailStatus('sending')
+      const firstOrder = createdOrders[0]
+      const firstItem = firstOrder.orderItems[0]
+
+      const emailSent = await sendTicketConfirmationEmail({
+        userName:      currentUser.name,
+        userEmail:     currentUser.email,
+        eventTitle:    firstOrder.event?.title || 'Event',
+        eventDate:     firstOrder.event?.startDate ? formatDate(firstOrder.event.startDate) : 'TBD',
+        eventVenue:    firstOrder.event?.venue?.name || 'Venue TBD',
+        ticketTypeName: firstItem?.ticketTypeName || 'General',
+        quantity:      firstItem?.quantity || 1,
+        totalAmount:   formatCurrency(total),
+        orderId:       firstOrder.orderId,
+        ticketCode:    firstOrder.firstTicketCode || firstOrder.orderId.toUpperCase(),
+        promoCode:     appliedPromo?.code,
+        discountAmount: discount > 0 ? formatCurrency(discount) : undefined,
+      })
+
+      setEmailStatus(emailSent ? 'sent' : 'failed')
+    }
+    // ─────────────────────────────────────────────────────────────────────────
+
     // Clear cart
     clearCart()
+
+    // Wait a moment so user sees email status before navigating
+    await new Promise(resolve => setTimeout(resolve, 2000))
+
     setIsCheckingOut(false)
     setPaymentStep('idle')
+    setEmailStatus('idle')
 
     navigate('/tickets', { state: { success: true, emailType: 'order_confirmation' } })
   }
@@ -375,7 +416,27 @@ export default function CartPage() {
                 <>
                   <CheckCircle2 className="w-16 h-16 text-emerald-500 mb-6 animate-in bounce-in" />
                   <h3 className="text-xl font-bold mb-2 text-emerald-600">Payment Successful!</h3>
-                  <p className="text-muted-foreground">Generating your tickets...</p>
+                  <p className="text-muted-foreground mb-4">Generating your tickets...</p>
+
+                  {/* Email Status Indicator */}
+                  {emailStatus === 'sending' && (
+                    <div className="flex items-center gap-2 text-sm text-blue-600 bg-blue-50 border border-blue-200 rounded-lg px-4 py-2">
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <span>Confirmation email bheja ja raha hai...</span>
+                    </div>
+                  )}
+                  {emailStatus === 'sent' && (
+                    <div className="flex items-center gap-2 text-sm text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-lg px-4 py-2">
+                      <MailCheck className="w-4 h-4" />
+                      <span>Email confirmation bhej diya gaya! 📧</span>
+                    </div>
+                  )}
+                  {emailStatus === 'failed' && (
+                    <div className="flex items-center gap-2 text-sm text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-4 py-2">
+                      <MailX className="w-4 h-4" />
+                      <span>Email nahi bheja ja saka. Tickets page pe dekho.</span>
+                    </div>
+                  )}
                 </>
               )}
             </CardContent>

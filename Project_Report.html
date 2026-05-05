@@ -113,20 +113,57 @@
         }
         @media print {
             body { background: white; }
-            .container { max-width: 100%; padding: 0; }
-            header, section { box-shadow: none; border: 1px solid #eee; border-radius: 0; }
             section { page-break-inside: avoid; }
+            .no-print { display: none; }
         }
+        .controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 100;
+        }
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s;
+        }
+        .btn-primary { background: #3b82f6; color: white; }
+        .btn-secondary { background: #64748b; color: white; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+        function downloadPDF() {
+            const element = document.querySelector('.container');
+            const opt = {
+                margin:       [10, 10],
+                filename:     'Project_Report_Aditya_Singh.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            html2pdf().set(opt).from(element).save();
+        }
+    </script>
 </head>
 <body>
+    <div class="controls no-print">
+        <button class="btn btn-secondary" onclick="window.print()">Print Preview</button>
+        <button class="btn btn-primary" onclick="downloadPDF()">Download PDF</button>
+    </div>
     <div class="container">
         <header>
             <h1>EventHub</h1>
             <p>Modern Event Management & Ticketing Solution</p>
             <div style="margin-top: 40px; font-weight: 600;">
                 <p>Course: Software Development Project</p>
-                <p>Presented by: [Aditya Singh]</p>
+                <p>Presented by: Aditya Singh</p>
             </div>
         </header>
 

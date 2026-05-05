@@ -1,4 +1,4 @@
-# EventHub - Event Management & Ticketing System
+# Student Performance Analysis System (SPAS)
 
 A full-featured event management and ticketing platform built with React, TypeScript, and Tailwind CSS.
 

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress Report - Aditya Singh</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.5;
+            color: #000;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+        }
+        .report-container {
+            padding: 30px;
+            border: 1px dashed #999;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            text-decoration: underline;
+            font-size: 22px;
+            margin: 0;
+            font-weight: bold;
+        }
+        .header h2 {
+            text-decoration: underline;
+            font-size: 22px;
+            margin: 5px 0;
+            font-weight: bold;
+        }
+        .header h3 {
+            text-decoration: underline;
+            font-size: 20px;
+            margin: 0;
+            font-weight: bold;
+        }
+        .submission-date {
+            margin: 20px 0;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .section-title {
+            font-size: 19px;
+            font-weight: bold;
+            margin: 15px 0 10px 0;
+        }
+        .sub-section-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px 0 10px 0;
+        }
+        ul {
+            margin: 10px 0;
+            padding-left: 25px;
+        }
+        li {
+            margin-bottom: 5px;
+            list-style-type: disc;
+        }
+        .details-list li {
+            list-style-type: disc;
+            margin-bottom: 8px;
+        }
+        .horizontal-line {
+            border-top: 1.5px solid #000;
+            margin: 20px 0;
+        }
+        .signature-row {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .status-line {
+            margin: 10px 0;
+            font-size: 17px;
+        }
+        .remarks-line {
+            margin: 20px 0;
+            font-size: 17px;
+            font-weight: bold;
+        }
+        .controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        .btn {
+            padding: 8px 16px;
+            cursor: pointer;
+            border: 1px solid #000;
+            background: #fff;
+            font-weight: bold;
+        }
+        .btn-blue { background: #2563eb; color: #fff; border: none; }
+        @media print {
+            .no-print { display: none; }
+            body { padding: 0; }
+            .report-container { border: none; }
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+        function downloadPDF() {
+            const element = document.querySelector('.report-container');
+            const opt = {
+                margin:       10,
+                filename:     'Progress_Report_EventHub.pdf',
+                image:        { type: 'jpeg', quality: 1 },
+                html2canvas:  { scale: 3 },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            html2pdf().set(opt).from(element).save();
+        }
+    </script>
+</head>
+<body>
+    <div class="controls no-print">
+        <button class="btn" onclick="window.print()">Print</button>
+        <button class="btn btn-blue" onclick="downloadPDF()">Download PDF</button>
+    </div>
+
+    <div class="report-container">
+        <div class="header">
+            <h1>Progress Report: 1</h1>
+            <h2>BCA VI Sem- Project Progress Report</h2>
+            <h3>2025-26</h3>
+        </div>
+
+        <div class="submission-date">
+            Submission Date: [02/05/2026]
+        </div>
+
+        <div class="section-title">1. Project Details</div>
+        <ul class="details-list">
+            <li><b>Project Title:</b> EventHub - Advanced Event Management & Ticketing System</li>
+            <li><b>Name of the Students:</b> Aditya Singh, Aditya Verma, Shreyansh Tiwari</li>
+            <li><b>Roll Number:</b> 2301031601007, ____________, ____________</li>
+            <li><b>Domain:</b> Web Development / E-commerce / Event Management</li>
+            <li><b>Problem Statement:</b> To develop a premium, localized event ticketing platform that simplifies event discovery, booking, and management for the Indian market with support for INR and regional venues.</li>
+            <li><b>Project Guide Name:</b> __________________________</li>
+        </ul>
+
+        <div class="horizontal-line"></div>
+
+        <div class="section-title">2. Current Status of the Project</div>
+        <p style="text-align: justify; margin-top: 10px;">
+            The project has successfully transitioned from the conceptual phase to a fully functional frontend implementation. The core user journey—from discovering events via a glassmorphic landing page to selecting tickets and viewing detailed event information—is operational. The system features a sophisticated dual-dashboard architecture (User & Organizer), responsive design, and integrated tools like interactive maps and ticket generators. The current version reflects a scalable foundation for a modern ticketing solution.
+        </p>
+
+        <div class="sub-section-title">Work Done (So Far)</div>
+        <ul>
+            <li>Developed premium landing page with glassmorphic UI and smooth transitions.</li>
+            <li>Created dynamic Organizer Dashboard with real-time sales analytics and revenue charts.</li>
+            <li>Implemented smart cart system with promo code validation and discount logic.</li>
+            <li>Integrated Google Maps for real-time event venue discovery and navigation.</li>
+            <li>Developed secure e-ticket generation with unique QR codes for entry validation.</li>
+            <li>Localized the application with INR (₹) support and regional Indian event data.</li>
+        </ul>
+
+        <div class="horizontal-line"></div>
+
+        <div class="sub-section-title">Work to be Done (Next Phase)</div>
+        <ul>
+            <li>Implement secure user authentication and profile management (Firebase/Auth0).</li>
+            <li>Integrate real-time backend database for data persistence and user history.</li>
+            <li>Add calendar synchronization (ICS) for event ticket holders.</li>
+            <li>Develop advanced data reporting features (CSV/PDF exports for organizers).</li>
+            <li>Integrate a live payment gateway for real-world transactions.</li>
+        </ul>
+
+        <div class="horizontal-line"></div>
+
+        <div class="sub-section-title">Challenges Faced</div>
+        <ul>
+            <li>Managing complex state for ticket availability, cart calculations, and inventory.</li>
+            <li>Ensuring a "Premium" visual aesthetic while maintaining high performance and fast load times.</li>
+            <li>Localizing application context (currency, locations, imagery) for the Indian market.</li>
+            <li>Handling responsive design for complex, data-heavy organizer dashboards.</li>
+        </ul>
+
+        <div class="horizontal-line"></div>
+
+        <div class="signature-row">
+            <div>
+                Date:<br>
+                02/05/2026
+            </div>
+            <div style="text-align: right;">
+                (Signature of Student)<br>
+                1. Aditya Singh<br>
+                2. Aditya Verma<br>
+                3. Shreyansh Tiwari
+            </div>
+        </div>
+
+        <div class="horizontal-line"></div>
+
+        <div class="section-title">3. Project Guide Comment</div>
+        <div class="status-line">Status: - Satisfactory / Unsatisfactory / Slow Progress</div>
+        <div class="remarks-line">Remarks (if Any)</div>
+        
+        <br><br>
+        <div class="horizontal-line"></div>
+        
+        <div style="font-weight: bold; margin-top: 20px;">
+            <p>Signature:- ________________</p>
+            <p>Name :- Mr. Harshit Singh</p>
+            <p>Project Co-ordinator</p>
+        </div>
+    </div>
+</body>
+</html>

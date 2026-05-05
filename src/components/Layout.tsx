@@ -55,7 +55,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 <Sparkles className="w-6 h-6 text-white relative z-10 animate-pulse" />
               </div>
               <span className="font-extrabold text-2xl tracking-tight hidden sm:block bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600 group-hover:from-rose-500 group-hover:to-purple-600 transition-all duration-500">
-                EventHub
+                SPAS
               </span>
             </Link>
 
@@ -203,7 +203,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 <Sparkles className="w-4 h-4 text-white relative z-10 animate-pulse" />
               </div>
               <span className="font-extrabold text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-700 to-slate-900 group-hover:from-purple-600 group-hover:to-indigo-600 transition-all duration-500">
-                EventHub
+                SPAS
               </span>
             </div>
             <p className="text-sm text-muted-foreground">
@@ -236,7 +236,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </div>
         </div>
         <div className="max-w-7xl mx-auto mt-8 pt-8 border-t text-center text-sm text-muted-foreground">
-          © 2026 EventHub. All rights reserved.
+          © 2026 SPAS. All rights reserved.
         </div>
       </footer>
 
@@ -270,7 +270,7 @@ function EmailNotification() {
     if (state?.emailType) {
       if (state.emailType === 'welcome') {
         setEmailData({
-          subject: 'Welcome to EventHub! 🎉',
+          subject: 'Welcome to SPAS! 🎉',
           preview: 'Your account has been successfully created. Start exploring amazing events today.',
           time: 'Just now'
         })
