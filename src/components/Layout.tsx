@@ -55,7 +55,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 <Sparkles className="w-6 h-6 text-white relative z-10 animate-pulse" />
               </div>
               <span className="font-extrabold text-2xl tracking-tight hidden sm:block bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600 group-hover:from-rose-500 group-hover:to-purple-600 transition-all duration-500">
-                SPAS
+                EventHub
               </span>
             </Link>
 
@@ -203,7 +203,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 <Sparkles className="w-4 h-4 text-white relative z-10 animate-pulse" />
               </div>
               <span className="font-extrabold text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-700 to-slate-900 group-hover:from-purple-600 group-hover:to-indigo-600 transition-all duration-500">
-                SPAS
+                EventHub
               </span>
             </div>
             <p className="text-sm text-muted-foreground">
@@ -236,25 +236,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </div>
         </div>
         <div className="max-w-7xl mx-auto mt-8 pt-8 border-t text-center text-sm text-muted-foreground">
-          © 2026 SPAS. All rights reserved.
+          © 2026 EventHub. All rights reserved.
         </div>
       </footer>
 
       {/* Simulated Email Notification System */}
       <EmailNotification />
 
-      {/* Premium Corner Glow Overlay (Direct Injection for Vercel) */}
-      <div 
-        className="fixed inset-0 pointer-events-none z-[9999] select-none" 
-        style={{
-          backgroundImage: `
-            radial-gradient(circle at 0% 0%, rgba(168, 85, 247, 0.3) 0%, transparent 35%),
-            radial-gradient(circle at 100% 0%, rgba(99, 102, 241, 0.3) 0%, transparent 35%),
-            radial-gradient(circle at 100% 100%, rgba(168, 85, 247, 0.3) 0%, transparent 35%),
-            radial-gradient(circle at 0% 100%, rgba(99, 102, 241, 0.3) 0%, transparent 35%)
-          `
-        }} 
-      />
+
     </div>
   )
 }
@@ -270,7 +259,7 @@ function EmailNotification() {
     if (state?.emailType) {
       if (state.emailType === 'welcome') {
         setEmailData({
-          subject: 'Welcome to SPAS! 🎉',
+          subject: 'Welcome to EventHub! 🎉',
           preview: 'Your account has been successfully created. Start exploring amazing events today.',
           time: 'Just now'
         })
