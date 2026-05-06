@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventHub Project Presentation - Aditya Singh</title>
+    
+    <!-- Reveal.js CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reset.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #6366f1;
+            --secondary: #a855f7;
+            --accent: #ec4899;
+            --bg-dark: #0f172a;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        .reveal {
+            font-family: 'Outfit', sans-serif !important;
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.15) 0px, transparent 50%);
+        }
+
+        .reveal .slides section {
+            color: #f8fafc;
+        }
+
+        .slide-content {
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px !important;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        h1, h2, h3 {
+            text-transform: none !important;
+            font-weight: 700 !important;
+            letter-spacing: -0.02em !important;
+        }
+
+        h1 {
+            background: linear-gradient(to right, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 3em !important;
+        }
+
+        h2 {
+            color: #e2e8f0 !important;
+            border-bottom: 2px solid var(--primary);
+            display: inline-block;
+            padding-bottom: 10px;
+            margin-bottom: 30px !important;
+        }
+
+        .reveal .slides section ul {
+            list-style-type: none;
+            margin-left: 0;
+            display: inline-block;
+            text-align: left;
+        }
+
+        .reveal .slides section ul li {
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 30px;
+            font-size: 0.9em;
+        }
+
+        .reveal .slides section ul li::before {
+            content: "✦";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .tech-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 0.7em;
+            font-weight: 600;
+        }
+
+        .badge {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.5em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .footer-info {
+            font-size: 0.4em;
+            margin-top: 40px;
+            color: #94a3b8;
+            border-top: 1px solid var(--glass-border);
+            padding-top: 20px;
+        }
+
+        .print-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid var(--glass-border);
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .print-btn:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        @media print {
+            .no-print { display: none !important; }
+            .reveal { background: white !important; }
+            .reveal .slides section { color: black !important; }
+            .slide-content { border: 1px solid #ddd !important; background: white !important; box-shadow: none !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <button class="print-btn no-print" onclick="window.print()">Export as PDF</button>
+
+    <div class="reveal">
+        <div class="slides">
+            
+            <!-- Slide 1: Title -->
+            <section data-background-gradient="linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%)">
+                <div class="slide-content">
+                    <div class="badge">BCA VI SEMESTER PROJECT</div>
+                    <h1>EventHub</h1>
+                    <p style="color: #94a3b8; font-size: 1.2em;">Advanced Event Management & Ticketing Solution</p>
+                    <div style="margin-top: 50px;">
+                        <p style="font-size: 0.8em; margin-bottom: 5px;">Presented by:</p>
+                        <h3 style="color: white; margin-bottom: 5px;">Aditya Singh</h3>
+                        <p style="font-size: 0.6em; color: var(--primary);">Roll No: 2301031601007 (Lead)</p>
+                    </div>
+                    <div class="footer-info">
+                        Team: Aditya Verma, Shreyansh Tiwari | Session 2025-26
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 2: Project Vision -->
+            <section>
+                <div class="slide-content">
+                    <h2>Project Vision</h2>
+                    <p style="font-size: 0.9em; line-height: 1.4;">
+                        EventHub is designed to revolutionize the event discovery and ticketing experience in India. 
+                        We aim to provide a <strong>premium, localized, and high-performance</strong> platform that 
+                        bridges the gap between event organizers and attendees.
+                    </p>
+                    <ul style="margin-top: 30px;">
+                        <li>Localized for Indian Market (INR, Local Venues)</li>
+                        <li>High-Fidelity Visual Excellence</li>
+                        <li>Seamless Mobile-First Architecture</li>
+                        <li>Built-in Security & Fraud Prevention</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Slide 3: Target Audience -->
+            <section>
+                <div class="slide-content">
+                    <h2>Double-Sided Marketplace</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 20px;">
+                        <div>
+                            <h3 style="color: var(--primary); font-size: 0.8em;">FOR ATTENDEES</h3>
+                            <ul style="font-size: 0.7em;">
+                                <li>Seamless Discovery</li>
+                                <li>Instant QR Ticketing</li>
+                                <li>Calendar Integration</li>
+                                <li>Interactive Maps</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 style="color: var(--secondary); font-size: 0.8em;">FOR ORGANIZERS</h3>
+                            <ul style="font-size: 0.7em;">
+                                <li>Real-time Dashboard</li>
+                                <li>Sales Analytics</li>
+                                <li>Attendee Management</li>
+                                <li>Secure QR Check-in</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 4: Key Features (UX) -->
+            <section>
+                <div class="slide-content">
+                    <h2>Attendee Experience</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 20px;">
+                        <div style="text-align: left; font-size: 0.7em;">
+                            <p><strong>✦ Smart Discovery:</strong> Category-based events with dynamic theming.</p>
+                            <p style="margin-top: 20px;"><strong>✦ Digital Vault:</strong> Instant access to all booked tickets in a personal profile.</p>
+                        </div>
+                        <div style="text-align: left; font-size: 0.7em;">
+                            <p><strong>✦ 1-Click Sync:</strong> Export events directly to Google/Apple calendars (ICS).</p>
+                            <p style="margin-top: 20px;"><strong>✦ Venue Navigator:</strong> Integrated Google Maps for precise location tracking.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 5: Core Features (Admin) -->
+            <section>
+                <div class="slide-content">
+                    <h2>Organizer Tools</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 20px;">
+                        <div style="text-align: left; font-size: 0.7em;">
+                            <p><strong>✦ Sales Intelligence:</strong> Interactive charts showing revenue growth and ticket trends.</p>
+                            <p style="margin-top: 20px;"><strong>✦ Data Sovereignty:</strong> One-click CSV export for all sales and attendee records.</p>
+                        </div>
+                        <div style="text-align: left; font-size: 0.7em;">
+                            <p><strong>✦ Door Management:</strong> Mobile-ready QR scanner for instant entry validation.</p>
+                            <p style="margin-top: 20px;"><strong>✦ Event Control:</strong> Dynamic pricing and inventory management system.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 6: Technology Stack -->
+            <section>
+                <div class="slide-content">
+                    <h2>Technical Architecture</h2>
+                    <div class="tech-grid">
+                        <div class="tech-item">React 18<br><span style="font-size: 0.6em; color: #94a3b8;">Frontend Library</span></div>
+                        <div class="tech-item">TypeScript<br><span style="font-size: 0.6em; color: #94a3b8;">Type Safety</span></div>
+                        <div class="tech-item">Vite<br><span style="font-size: 0.6em; color: #94a3b8;">Build System</span></div>
+                        <div class="tech-item">Tailwind CSS<br><span style="font-size: 0.6em; color: #94a3b8;">Atomic Styling</span></div>
+                        <div class="tech-item">Lucide React<br><span style="font-size: 0.6em; color: #94a3b8;">Iconography</span></div>
+                        <div class="tech-item">Recharts<br><span style="font-size: 0.6em; color: #94a3b8;">Data Visualization</span></div>
+                        <div class="tech-item">Zustand<br><span style="font-size: 0.6em; color: #94a3b8;">State Management</span></div>
+                        <div class="tech-item">jsPDF<br><span style="font-size: 0.6em; color: #94a3b8;">Document Gen</span></div>
+                        <div class="tech-item">Vercel<br><span style="font-size: 0.6em; color: #94a3b8;">Deployment</span></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 7: UI/UX Philosophy -->
+            <section>
+                <div class="slide-content">
+                    <h2>Design Philosophy</h2>
+                    <div style="text-align: left; margin-top: 20px;">
+                        <p style="font-size: 0.8em; margin-bottom: 20px;">
+                            We followed a <strong>"Mobile-First, Content-Forward"</strong> approach:
+                        </p>
+                        <ul style="font-size: 0.75em;">
+                            <li><strong>Glassmorphism:</strong> Using frosted-glass effects for depth.</li>
+                            <li><strong>Micro-animations:</strong> Improving engagement via subtle hover/entry effects.</li>
+                            <li><strong>Semantic Structure:</strong> Ensuring accessibility and SEO compliance.</li>
+                            <li><strong>Responsive Layout:</strong> Flawless experience across all devices.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 8: Future Roadmap -->
+            <section>
+                <div class="slide-content">
+                    <h2>The Roadmap Ahead</h2>
+                    <div style="display: flex; justify-content: center; gap: 20px; margin-top: 30px;">
+                        <div style="background: rgba(99, 102, 241, 0.1); padding: 20px; border-radius: 15px; width: 30%;">
+                            <h4 style="font-size: 0.6em; color: var(--primary);">PHASE 1</h4>
+                            <p style="font-size: 0.5em;">Payment Gateway Integration (Razorpay)</p>
+                        </div>
+                        <div style="background: rgba(168, 85, 247, 0.1); padding: 20px; border-radius: 15px; width: 30%;">
+                            <h4 style="font-size: 0.6em; color: var(--secondary);">PHASE 2</h4>
+                            <p style="font-size: 0.5em;">Native Mobile App (React Native)</p>
+                        </div>
+                        <div style="background: rgba(236, 72, 153, 0.1); padding: 20px; border-radius: 15px; width: 30%;">
+                            <h4 style="font-size: 0.6em; color: var(--accent);">PHASE 3</h4>
+                            <p style="font-size: 0.5em;">AI-Powered Event Recommendations</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 9: Conclusion -->
+            <section data-background-gradient="linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%)">
+                <div class="slide-content">
+                    <h1>Thank You</h1>
+                    <p style="color: #94a3b8; font-size: 1.1em; margin-top: 20px;">Any Questions?</p>
+                    
+                    <div style="margin-top: 60px; font-size: 0.6em; color: #64748b;">
+                        <p>Project Code & Live Demo available on GitHub / Vercel</p>
+                        <p style="margin-top: 10px;">ADITYA SINGH | BCA VI SEMESTER | 2026</p>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Reveal.js Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            center: true,
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            backgroundTransition: 'fade',
+            mouseWheel: true,
+            controls: true,
+            progress: true,
+            // Slides are 960x700 by default
+            width: 1100,
+            height: 700,
+            margin: 0.1,
+            minScale: 0.2,
+            maxScale: 2.0
+        });
+    </script>
+</body>
+</html>
